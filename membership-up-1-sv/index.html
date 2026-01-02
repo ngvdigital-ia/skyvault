@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyVault UP-1 - AI Assistant Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+      @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+      .float-animation { animation: float 3s ease-in-out infinite; }
+      .lesson-content h2 { color: #00508d; font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
+      .lesson-content h3 { color: #1e40af; font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+      .lesson-content p { color: #374151; line-height: 1.8; margin-bottom: 1rem; text-align: justify; }
+      .lesson-content ul, .lesson-content ol { margin: 1rem 0 1.5rem 1.5rem; color: #374151; }
+      .lesson-content li { margin-bottom: 0.75rem; line-height: 1.7; }
+      .lesson-content strong { color: #00508d; }
+      .lesson-content a { color: #2563eb; text-decoration: underline; }
+      .tip-box { background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); border-left: 4px solid #3b82f6; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+      .action-box { background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%); border-left: 4px solid #22c55e; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    </style>
+</head>
+<body x-data="{ 
+    showMenu: window.innerWidth >= 768, 
+    currentLesson: 'home',
+    isAuthenticated: true,
+    password: '',
+    email: '',
+    error: '',
+    checkAuth() {
+        // Senha única para todos - Mude aqui se necessário
+        if (this.password === 'SkyVault2024') {
+            this.isAuthenticated = true;
+            this.error = '';
+            sessionStorage.setItem('skyvault_auth', 'true');
+        } else {
+            this.error = 'Incorrect password. Please try again.';
+            this.password = '';
+        }
+    }
+}" 
+x-init="
+    window.addEventListener('resize', () => { showMenu = window.innerWidth >= 768; });
+    if (sessionStorage.getItem('skyvault_auth') === 'true') {
+        isAuthenticated = true;
+    }
+" 
+class="font-sans w-full bg-gray-50">
+
+
+    <!-- CONTEÚDO PRINCIPAL (só aparece após autenticação) -->
+    <div x-show="isAuthenticated" class="w-full">
+    <div class="flex w-full relative">
+        
+        <!-- SIDEBAR MENU -->
+        <div x-show="showMenu" x-transition class="fixed min-h-screen z-50 top-0 left-0 w-4/5 max-w-[300px] h-full bg-white shadow-lg overflow-y-auto md:static md:w-1/6">
+            <div class="flex items-center justify-center mx-auto py-4 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-12 h-12 bg-[#00508d] rounded-xl flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-xl float-animation"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-[#00508d]">SkyVault UP-1</h1>
+                        <p class="text-xs text-gray-400">AI Tools</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-1 p-4 font-thin text-sm">
+                <div class="mb-4"><a href="#" @click.prevent="currentLesson='home'" class="font-semibold text-[#00508d]"><i class="fas fa-home mr-2"></i>Welcome</a></div>
+                
+                <!-- Module 1 -->
+                <div class="pt-3 border-t border-gray-100"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 1: Which AIs to Use</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m1a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m1a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Available AI Tools</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Module 2 -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 2: How to Use the AIs</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Using AI to Find Cheap Flights</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Useful Links -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Useful Links</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="https://chatgpt.com/g/g-H832XZPOP-seats-aero" target="_blank" class="text-gray-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-blue-500"></i> ChatGPT Agent</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="https://seats.aero/assistant" target="_blank" class="text-gray-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-blue-500"></i> Seats.aero AI</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <div class="mt-6"><a href="https://wa.me/553498718760?text=hi,%20i%20need%20help%20with%20the%20skyvault%20program" target="_blank" class="bg-green-600 py-3 w-full rounded-lg shadow text-white hover:bg-green-700 block text-center transition-colors"><i class="fab fa-whatsapp mr-2"></i>Support</a></div>
+                
+                <div class="mt-3"><a href="mailto:contatoleo@ngvdigital.site?subject=Support%20Request" class="bg-gray-400 py-3 w-full rounded-lg shadow text-white hover:bg-gray-500 block text-center transition-colors">
+                    Email Support</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Button -->
+        <button @click="showMenu = !showMenu" class="fixed z-50 top-4 right-4 flex items-center gap-2 md:hidden bg-[#00508d] px-4 py-2 rounded-full shadow-lg"><i class="fas fa-bars text-white"></i><span class="text-white text-sm">MENU</span></button>
+        <div x-show="showMenu" x-transition @click="showMenu = false" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+        
+        <!-- MAIN CONTENT AREA -->
+        <div class="flex-1 md:w-5/6 min-h-screen bg-white">
+            
+            <!-- HOME -->
+            <div x-show="currentLesson=='home'" class="p-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="w-24 h-24 bg-[#00508d] rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-robot text-white text-4xl float-animation"></i></div>
+                    <h1 class="text-4xl font-bold text-[#00508d] mb-4">Welcome to SkyVault UP-1</h1>
+                    <p class="text-xl text-gray-600 mb-8">AI-Powered Flight Search Tools</p>
+                    <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-8 text-white mb-8">
+                        <h2 class="text-2xl font-bold mb-4">Discover AI Tools for Finding Cheap Flights</h2>
+                        <p class="text-blue-100 mb-6">Learn how to use advanced AI assistants to find the best flight deals using miles. These tools will help you save up to 80% on your travels!</p>
+                        <button @click="currentLesson='m1a1'" class="bg-white text-[#00508d] px-6 py-3 rounded-lg font-semibold hover:bg-blue-50"><i class="fas fa-play mr-2"></i>Start Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 1: WHICH AIs TO USE -->
+            <div x-show="currentLesson=='m1a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 1</p><h1 class="text-2xl font-bold">Which AIs to Use</h1></div>
+                
+                <p class="text-lg mb-6">There are 2 AI that will help you find the cheap airline tickets for you.</p>
+                
+                <p class="mb-4">Below are the links to both:</p>
+                
+                <div class="space-y-6 mb-8">
+                    <div class="bg-white border-2 border-blue-200 rounded-xl p-6 hover:border-[#00508d] transition-colors">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#00508d] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-robot text-white text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-[#00508d] mb-2">1. ChatGPT Agent</h3>
+                                <p class="text-gray-600 mb-4">An AI-powered assistant specifically designed to help you find cheap flights using Seats.aero and miles.</p>
+                                <a href="https://chatgpt.com/g/g-H832XZPOP-seats-aero" target="_blank" class="inline-flex items-center gap-2 bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Access ChatGPT Agent
+                                </a>
+                                <p class="text-sm text-gray-500 mt-2 break-all">https://chatgpt.com/g/g-H832XZPOP-seats-aero</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border-2 border-blue-200 rounded-xl p-6 hover:border-[#00508d] transition-colors">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-[#00508d] rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-plane text-white text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-[#00508d] mb-2">2. Seats.aero Native AI</h3>
+                                <p class="text-gray-600 mb-4">The built-in AI assistant on Seats.aero platform that helps you search for award tickets and cheap flights.</p>
+                                <a href="https://seats.aero/assistant" target="_blank" class="inline-flex items-center gap-2 bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Access Seats.aero AI
+                                </a>
+                                <p class="text-sm text-gray-500 mt-2 break-all">https://seats.aero/assistant</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Tip:</p>
+                    <p class="text-gray-700">Both AI tools are designed to help you find the best flight deals using miles. You can use either one or both depending on your preference. The ChatGPT Agent offers conversational assistance, while the Seats.aero AI is integrated directly into the flight search platform.</p>
+                </div>
+                
+                <div class="flex justify-end mt-8"><button @click="currentLesson='m2a1'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next Module <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 2: HOW TO USE THE AIs -->
+            <div x-show="currentLesson=='m2a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2</p><h1 class="text-2xl font-bold">How to Use These AI?</h1></div>
+                
+                <h2>How to Find Cheap Flights With Miles</h2>
+                
+                <p>Using AI to find cheap flights is simple and straightforward. Follow these steps to get the best results:</p>
+                
+                <ol class="space-y-4">
+                    <li>
+                        <strong>Tell the AI where you want to fly from and to.</strong><br>
+                        <span class="text-gray-600">Example: "São Paulo to Dubai."</span>
+                    </li>
+                    <li>
+                        <strong>Say if it's one-way or round-trip, and tell the month you want to travel.</strong><br>
+                        <span class="text-gray-600">This helps the AI narrow down the best options for your specific travel dates.</span>
+                    </li>
+                    <li>
+                        <strong>Tell the AI the travel class (economy, premium economy, or business) and how many days you want to stay.</strong><br>
+                        <span class="text-gray-600">Specifying your preferences helps the AI find the most suitable flights for your needs.</span>
+                    </li>
+                </ol>
+                
+                <h2>About Stops and Connections</h2>
+                
+                <p>The AI will always search for flights with <strong>0 or 1 stop</strong> because they are faster, easier, and usually cheaper.</p>
+                
+                <p>If you see flights with <strong>2 or 3 stops</strong>, it means the airline or date is not ideal, and you should search again with different dates or airlines.</p>
+                
+                <div class="tip-box">
+                    <p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Example so simple a 5-year-old understands:</p>
+                    <p class="text-gray-700">If you go from home to grandma's house and only stop once to drink water, it's easy. But if you need to stop <strong>three times</strong>, your trip takes much longer and becomes annoying. That's why the AI finds flights with <strong>zero or one stop</strong>, because it's better for you.</p>
+                </div>
+                
+                <h2>What the AI Will Give You</h2>
+                
+                <p>After you send your trip request, the AI gives you:</p>
+                
+                <ul class="space-y-2">
+                    <li>The <strong>cheapest option in miles</strong></li>
+                    <li><strong>How many miles it costs</strong></li>
+                    <li><strong>Which airline is offering it</strong></li>
+                    <li>A <strong>direct Seats.aero link to reserve</strong></li>
+                </ul>
+                
+                <div class="action-box">
+                    <p class="text-green-800 font-semibold mb-2"><i class="fas fa-info-circle mr-2"></i>Important:</p>
+                    <p class="text-gray-700">You <strong>don't need to have miles right now</strong>. You can <strong>convert your money into miles</strong> using apps or directly with the airline. This process is explained step-by-step in <strong>Module 2 of SkyVault</strong>.</p>
+                </div>
+                
+                <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white my-8">
+                    <h3 class="text-2xl font-bold mb-3"><i class="fas fa-check-circle mr-2"></i>Ready to Start?</h3>
+                    <p class="text-lg mb-4">Now that you know how to use the AI tools, you're ready to find your first cheap flight!</p>
+                    <p class="mb-2"><strong>Remember:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 mb-4">
+                        <li>Be specific about your travel dates and preferences</li>
+                        <li>Look for flights with 0 or 1 stop for the best experience</li>
+                        <li>You can convert money to miles if needed</li>
+                    </ul>
+                    <p class="text-xl font-semibold">Happy travels! ✈️</p>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button @click="currentLesson='m1a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button @click="currentLesson='home'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2"><i class="fas fa-home mr-2"></i>Back to Home</button>
+                </div>
+            </div></div>
+
+        </div>
+    </div>
+    </div>
+    <!-- Fim do conteúdo autenticado -->
+
+</body>
+</html>
+

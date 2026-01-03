@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyVault - Travel the World Spending Less</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+      @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+      .float-animation { animation: float 3s ease-in-out infinite; }
+      .lesson-content h2 { color: #00508d; font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
+      .lesson-content h3 { color: #1e40af; font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+      .lesson-content p { color: #374151; line-height: 1.8; margin-bottom: 1rem; text-align: justify; }
+      .lesson-content ul, .lesson-content ol { margin: 1rem 0 1.5rem 1.5rem; color: #374151; }
+      .lesson-content li { margin-bottom: 0.75rem; line-height: 1.7; }
+      .lesson-content strong { color: #00508d; }
+      .lesson-content a { color: #2563eb; text-decoration: underline; }
+      .tip-box { background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); border-left: 4px solid #3b82f6; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+      .action-box { background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%); border-left: 4px solid #22c55e; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    </style>
+</head>
+<body x-data="{ 
+    showMenu: window.innerWidth >= 768, 
+    currentLesson: 'm1a1',
+    isAuthenticated: true,
+    password: '',
+    email: '',
+    error: '',
+    checkAuth() {
+        // Senha única para todos - Mude aqui se necessário
+        if (this.password === 'SkyVault2024') {
+            this.isAuthenticated = true;
+            this.error = '';
+            sessionStorage.setItem('skyvault_auth', 'true');
+        } else {
+            this.error = 'Incorrect password. Please try again.';
+            this.password = '';
+        }
+    }
+}" 
+x-init="
+    window.addEventListener('resize', () => { showMenu = window.innerWidth >= 768; });
+    if (sessionStorage.getItem('skyvault_auth') === 'true') {
+        isAuthenticated = true;
+    }
+" 
+class="font-sans w-full bg-gray-50">
+
+    <!-- CONTEÚDO PRINCIPAL (só aparece após autenticação) -->
+    <div x-show="isAuthenticated" class="w-full">
+    <div class="flex w-full relative">
+        
+        <!-- SIDEBAR MENU -->
+        <div x-show="showMenu" x-transition class="fixed min-h-screen z-50 top-0 left-0 w-4/5 max-w-[300px] h-full bg-white shadow-lg overflow-y-auto md:static md:w-1/6">
+            <div class="flex items-center justify-center mx-auto py-4 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <div class="w-12 h-12 bg-[#00508d] rounded-xl flex items-center justify-center">
+                        <i class="fas fa-plane text-white text-xl float-animation"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-[#00508d]">SkyVault</h1>
+                        <p class="text-xs text-gray-400">Travel the World</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-1 p-4 font-thin text-sm">
+                <div class="mb-4"><a href="#" @click.prevent="currentLesson='home'" class="font-semibold text-[#00508d]"><i class="fas fa-home mr-2"></i>Welcome to SkyVault</a></div>
+                
+                <!-- Module 1 -->
+                <div class="pt-3 border-t border-gray-100"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 1: Awakening the Smart Traveler</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m1a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m1a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 1: Why Traveling Cheap Is Easier</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m1a2'" class="hover:text-blue-800 transition" :class="currentLesson=='m1a2' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 2: The Power of Seats.aero</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m1a3'" class="hover:text-blue-800 transition" :class="currentLesson=='m1a3' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 3: Loyalty Programs</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Module 2 -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 2: Mastering Seats.aero</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 1: Setting Up for Maximum Results</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a2'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a2' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 2: Search Strategies</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a3'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a3' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 3: Avoiding Pitfalls</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a4'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a4' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 4: From App to Booking</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m2a5'" class="hover:text-blue-800 transition" :class="currentLesson=='m2a5' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 5: In Practice</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Module 3 -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 3: The Miles Game</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m3a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m3a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 1: Choosing the Perfect Program</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m3a2'" class="hover:text-blue-800 transition" :class="currentLesson=='m3a2' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 2: Earning Miles Without Flying</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m3a3'" class="hover:text-blue-800 transition" :class="currentLesson=='m3a3' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 3: Booking with Miles</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m3a4'" class="hover:text-blue-800 transition" :class="currentLesson=='m3a4' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 4: Buying Miles</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m3a5'" class="hover:text-blue-800 transition" :class="currentLesson=='m3a5' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 5: In Practice</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Module 4 -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 4: Planning Dream Trips</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m4a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m4a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 1: Strategic Mindset</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m4a2'" class="hover:text-blue-800 transition" :class="currentLesson=='m4a2' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 2: Airline Alliances</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m4a3'" class="hover:text-blue-800 transition" :class="currentLesson=='m4a3' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 3: Group Travel</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m4a4'" class="hover:text-blue-800 transition" :class="currentLesson=='m4a4' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 4: Overcoming Obstacles</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Module 5 -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Module 5: Smart Traveler Lifestyle</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m5a1'" class="hover:text-blue-800 transition" :class="currentLesson=='m5a1' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 1: Automating Your Search</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m5a2'" class="hover:text-blue-800 transition" :class="currentLesson=='m5a2' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 2: Keeping Momentum</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m5a3'" class="hover:text-blue-800 transition" :class="currentLesson=='m5a3' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 3: Premium Classes for Less</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m5a4'" class="hover:text-blue-800 transition" :class="currentLesson=='m5a4' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 4: Traveler Community</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                <div class="flex items-center justify-between gap-2"><a href="#" @click.prevent="currentLesson='m5a5'" class="hover:text-blue-800 transition" :class="currentLesson=='m5a5' ? 'text-[#00508d] font-semibold' : 'text-gray-700'">• Lesson 5: Your First Cheap Flight!</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <!-- Useful Links -->
+                <div class="pt-3 border-t border-gray-100 mt-3"><p class="text-xs text-gray-400 uppercase tracking-wider mb-2 font-semibold">Useful Links</p></div>
+                <div class="flex items-center justify-between gap-2"><a href="https://seats.aero" target="_blank" class="text-gray-700 flex items-center"><i class="fas fa-external-link-alt mr-2 text-blue-500"></i> Access Seats.aero</a><i class="fa-solid fa-arrow-right text-xs text-[#00508d]"></i></div>
+                
+                <div class="mt-6"><a href="https://wa.me/553498718760?text=hi,%20i%20need%20help%20with%20the%20skyvault%20program" target="_blank" class="bg-green-600 py-3 w-full rounded-lg shadow text-white hover:bg-green-700 block text-center transition-colors"><i class="fab fa-whatsapp mr-2"></i>Support</a></div>
+                
+                <div class="mt-3"><a href="mailto:contatoleo@ngvdigital.site?subject=Support%20Request" class="bg-gray-400 py-3 w-full rounded-lg shadow text-white hover:bg-gray-500 block text-center transition-colors">
+                    Email Support
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Button -->
+        <button @click="showMenu = !showMenu" class="fixed z-50 top-4 right-4 flex items-center gap-2 md:hidden bg-[#00508d] px-4 py-2 rounded-full shadow-lg"><i class="fas fa-bars text-white"></i><span class="text-white text-sm">MENU</span></button>
+        <div x-show="showMenu" x-transition @click="showMenu = false" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+        
+        <!-- MAIN CONTENT AREA -->
+        <div class="flex-1 md:w-5/6 min-h-screen bg-white">
+            
+            <!-- HOME -->
+            <div x-show="currentLesson=='home'" class="p-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="w-24 h-24 bg-[#00508d] rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-plane text-white text-4xl float-animation"></i></div>
+                    <h1 class="text-4xl font-bold text-[#00508d] mb-4">Welcome to SkyVault</h1>
+                    <p class="text-xl text-gray-600 mb-8">Travel the World Spending Less</p>
+                    <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-8 text-white mb-8">
+                        <h2 class="text-2xl font-bold mb-4">The Power of Seats.aero and Loyalty Programs</h2>
+                        <p class="text-blue-100 mb-6">Discover the secrets to finding cheap airline tickets using Seats.aero and loyalty programs. Save up to 80% on your travels!</p>
+                        <button @click="currentLesson='m1a1'" class="bg-white text-[#00508d] px-6 py-3 rounded-lg font-semibold hover:bg-blue-50"><i class="fas fa-play mr-2"></i>Start Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 1 LESSON 1 - FULL CONTENT -->
+            <div x-show="currentLesson=='m1a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 1 • Lesson 1</p><h1 class="text-2xl font-bold">Why Traveling Cheap Is Easier Than You Think</h1></div>
+                
+                <p>Imagine for a moment: you, sitting on a beach in Bali, walking the vibrant streets of Tokyo, or exploring Europe's castles. Now, imagine doing all that without draining your bank account. Sound like a distant dream? It's not. Traveling the world on a budget isn't just for the rich, experts, or lucky ones. It's a skill anyone can learn, and today you're taking the first step to becoming a smart traveler – someone who spots opportunities where others see roadblocks.</p>
+                
+                <p>Let's start by debunking a big myth: airline tickets are expensive. That's simply not true. Airlines operate in a dynamic market where prices shift constantly based on supply, demand, dates, and even little tricks most people don't know about. For example, a flight from New York to Paris might cost one thousand two hundred dollars on a regular booking site, but with the right tools like Seats.aero, you can find it for four hundred dollars or even book it almost for free using miles. How? Because the ticket market is like a chess game: those who know the right rules make the best moves.</p>
+                
+                <p>The first step to traveling cheap is shifting your mindset. Think like an opportunity hunter. While most people open a site, see a high price, and give up, the smart traveler knows there's always a hidden deal – a promo fare, a miles combo, or an alternate route. For example, a direct flight from London to Sydney might cost one thousand five hundred dollars, but using Seats.aero to search for flights with stops or flexible dates, you can drop that to six hundred dollars. It's real, it's doable, and you're about to learn how.</p>
+                
+                <h2>How Does the Ticket Market Work?</h2>
+                <p>Airlines want to fill their planes, so they offer promo prices, award tickets (paid with miles), and partner deals. The catch is these deals don't show up in ads or on a booking site's front page. They're buried in complex systems, and tools like Seats.aero were built to uncover them. Seats.aero is an app that tracks award tickets and promos in real time, showing flights that cost less cash or fewer miles. It's not a regular booking site – it's a shortcut to the world's best deals.</p>
+                
+                <p>For example, say you want to go from São Paulo to Miami. A site like Expedia might show a flight for eight hundred dollars. But open Seats.aero (at www.seats.aero), set an alert for that route, and discover an award ticket for fifteen thousand miles + fifty dollars in fees. With the right loyalty program, like Star Alliance, you can book it and save hundreds of dollars. No need to be a tech genius – the app is straightforward, with an interface anyone can use.</p>
+                
+                <h2>How to Access and Use Seats.aero</h2>
+                <ol>
+                    <li>Go to www.seats.aero on your phone or computer.</li>
+                    <li>Create a free account (just an email and password).</li>
+                    <li>On the main screen, enter your origin city (e.g., London, New York) and destination (e.g., Tokyo, Rome).</li>
+                    <li>Choose whether to search for miles or cash tickets.</li>
+                    <li>The app displays a list of available flights, with prices, dates, and airlines.</li>
+                </ol>
+                
+                <p>What's it for? Seats.aero is like a treasure map: it reveals cheap tickets you'd never find alone. It scans loyalty programs and airline deals, showing options like a flight from Los Angeles to Bangkok for twenty thousand miles or three hundred dollars, when the regular price would be one thousand dollars. It's a global tool that works for any route, from any country.</p>
+                
+                <p>But it's not just about tools – it's about believing you can. Think of your trips as a puzzle. Each piece (tools like Seats.aero, loyalty programs, flexible dates) fits together to create a cheap, unforgettable journey. In this course, I'll guide you to assemble that puzzle, step by step, until traveling the world on a budget feels as natural as planning a weekend.</p>
+                
+                <p>Why does this work? Because the aviation market is packed with opportunities. Airlines like United, Lufthansa, and Qatar Airways offer award tickets and promos every day. The trick is knowing where to look and how to act fast. By the end of this course, you'll not only know how to find these deals but feel confident booking flights to any corner of the planet, spending a fraction of what others pay.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, just reflect: what's your dream destination? Write it in your notebook or phone. Maybe the Eiffel Tower, Cancún beaches, or an African safari. That destination is closer than you think, and in the next lessons, you'll discover exactly how to reach it.</p></div>
+                
+                <div class="flex justify-end mt-8"><button @click="currentLesson='m1a2'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next Lesson <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 1 LESSON 2 - FULL CONTENT -->
+            <div x-show="currentLesson=='m1a2'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 1 • Lesson 2</p><h1 class="text-2xl font-bold">The Power of Seats.aero: Your New Secret Weapon</h1></div>
+                
+                <p>Welcome to your new secret weapon for traveling the world on a budget: Seats.aero. If you've ever felt frustrated seeing sky-high airline ticket prices, this lesson will change everything. Seats.aero isn't just another app – it's a revolutionary tool that puts the best flight deals in the palm of your hand, whether you're a beginner or a seasoned traveler. Today, you'll learn exactly how to access, set up, and use Seats.aero to find cheap flights to any destination, from New York to Sydney, London to Cape Town.</p>
+                
+                <p>What is Seats.aero? It's an online app that tracks cheap airline tickets in real time, especially award tickets (paid with miles) and cash promos. It connects to global airline loyalty programs like Star Alliance, Oneworld, and SkyTeam, showing flights that cost way less than on traditional sites like Kayak or Google Flights. For example, a flight from Chicago to Dubai might cost one thousand five hundred dollars on a regular site, but Seats.aero can find the same route for twenty-five thousand miles + eighty dollars in fees. It's like having a personal assistant hunting the best deals for you.</p>
+                
+                <h2>How to Access Seats.aero</h2>
+                <ol>
+                    <li>Open your browser (on phone or computer) and go to www.seats.aero.</li>
+                    <li>Click "Sign Up" to create a free account with your email and a password.</li>
+                    <li>After logging in, you'll see a dashboard with fields for your origin city, destination, and travel dates.</li>
+                    <li>Choose to search for miles (award tickets) or cash (promos).</li>
+                </ol>
+                
+                <h2>How to Use Seats.aero</h2>
+                <p>The interface is simple, even for non-techies. Let's say you want to go from Toronto to Rome. In the "From" field, type "Toronto (YYZ)"; in "To," type "Rome (FCO)." If you're flexible, check "Flexible Dates" to see deals across a range of days. Click "Search," and Seats.aero lists available flights, including:</p>
+                <ul>
+                    <li>Airline (e.g., Air Canada, Lufthansa).</li>
+                    <li>Price in miles (e.g., twenty thousand miles) or cash (e.g., three hundred fifty dollars).</li>
+                    <li>Available dates and times.</li>
+                    <li>Direct link to book on the airline or partner site.</li>
+                </ul>
+                
+                <p>For example, Seats.aero might show a Toronto to Rome flight for fifteen thousand miles on Air Canada, while the cash price would be nine hundred dollars. You click the link, log into the airline's loyalty program (like Aeroplan), and book in minutes.</p>
+                
+                <p>What's Seats.aero for? It's designed to uncover opportunities other sites miss. Most booking sites show only standard prices, but Seats.aero scans loyalty programs and airline partnerships, revealing tickets up to eighty percent off. It also lets you set price alerts: get an email or notification when a deal pops up for your desired route. For example, if you want Singapore to New York, set an alert in Seats.aero, and it'll notify you when a flight for twenty thousand miles or four hundred dollars is available.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Say you dream of visiting Japan. In Seats.aero, search flights from London (LHR) to Tokyo (NRT). The app shows a deal for twenty-two thousand miles on ANA (part of Star Alliance) in economy, with sixty dollars in fees. Without Seats.aero, you might pay one thousand two hundred dollars for the same flight. With a few clicks, you save nearly one thousand dollars. And the best part? The app works for any destination worldwide, from small European towns to remote Pacific islands.</p></div>
+                
+                <p>Why is this so powerful? Because Seats.aero democratizes access to cheap tickets. You don't need to be an aviation expert or have years of miles saved up. The tool does the heavy lifting, showing exactly where the deals are. And since it's global, it works for travelers in any country with internet access. Whether you're a student in Berlin, a family in São Paulo, or a digital nomad in Bali, Seats.aero is your passport to affordable travel.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Tip:</p><p class="text-gray-700">Today, go to www.seats.aero, create your account, and do a test search for a destination you've always wanted to visit. No need to book yet – just see how easy it is to find cheap flights. In the next lesson, we'll dive into loyalty programs, which, combined with Seats.aero, will make your travels incredibly economical.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m1a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m1a3'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 1 LESSON 3 - FULL CONTENT -->
+            <div x-show="currentLesson=='m1a3'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 1 • Lesson 3</p><h1 class="text-2xl font-bold">Loyalty Programs: The Shortcut to Almost-Free Tickets</h1></div>
+                
+                <p>If you've ever thought traveling the world is expensive, get ready for a revelation: loyalty programs are like a miles bank where you rack up points and swap them for cheap or even free airline tickets. These programs, offered by global airlines and credit cards, are the secret of smart travelers. In this lesson, you'll learn what loyalty programs are, how to access them, how to use them, and why they're a shortcut to your next adventures around the world.</p>
+                
+                <h2>What Are Loyalty Programs?</h2>
+                <p>They're systems created by airlines and banks to reward customers with points or miles. Every time you fly, shop with a partner credit card, or use affiliated services, you earn miles. These miles can be traded for airline tickets, class upgrades, or even hotels. For example, with twenty thousand miles in United MileagePlus, you can fly from Los Angeles to London almost for free, paying just about seventy dollars in fees.</p>
+                
+                <p>The most powerful ones are from global alliances, like Star Alliance (including United, Lufthansa, Air Canada), Oneworld (American Airlines, British Airways, Qatar Airways), and SkyTeam (Delta, Air France, KLM). These programs are worldwide, meaning you can use them from any country. Plus, credit cards like American Express Membership Rewards or Chase Ultimate Rewards let you transfer points to multiple airline programs, giving flexibility to pick the best deal.</p>
+                
+                <h2>How to Access Loyalty Programs</h2>
+                <ol>
+                    <li>Pick a global program. For example, go to www.united.com to sign up for United MileagePlus or www.aa.com for American Airlines AAdvantage.</li>
+                    <li>Click "Join Now" or "Sign Up" (usually free) and fill in your details (name, email, password).</li>
+                    <li>For credit cards, visit sites like www.americanexpress.com or www.chase.com and check which cards offer transferable points to miles programs.</li>
+                    <li>After signing up, you get a loyalty number to earn and redeem miles.</li>
+                </ol>
+                
+                <h2>How to Use Loyalty Programs</h2>
+                <p>Once enrolled, you earn miles in various ways: flying with the airline or partners, using affiliated credit cards, or shopping at partner stores (e.g., Amazon via program portals like British Airways Avios). To redeem, log into the program site and search for award tickets. For example, on the Star Alliance site, you can use Air Canada miles to fly Lufthansa. Seats.aero makes this easier by showing which programs have the best miles deals for your route.</p>
+                
+                <p>What are they for? Loyalty programs turn miles into cheap tickets. Imagine wanting Sydney to Paris. On the Qantas site (Oneworld), you find a flight for thirty thousand miles + ninety dollars in fees, while the regular price would be one thousand four hundred dollars. Or, with American Express Membership Rewards, transfer points to Singapore Airlines KrisFlyer and fly business class for fifty thousand miles, saving thousands. These programs are global, so they work no matter where you are.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Say you live in Berlin and want to visit Rio de Janeiro. In Seats.aero, you discover TAP Air Portugal (Star Alliance) offers a flight for twenty-five thousand miles. Go to www.flytap.com, log into Miles&Go, check if you have enough miles, and book in minutes. If not, transfer points from an American Express card or even buy miles directly (as we'll cover in Module 3). Result? A trip that would cost one thousand dollars comes in under one hundred dollars in fees.</p></div>
+                
+                <p>Why does this work? Because airlines want loyal customers, so they offer miles as incentives. And with global alliances, your miles work across dozens of airlines. Seats.aero amps this up, showing the best redemption options in real time. Whether you're a student, professional, or retiree – anyone can use these programs to travel more while spending less.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, pick a global program (I recommend United MileagePlus or American Express Membership Rewards) and create your account. No need to do more – just take this first step into the miles game. In the next lesson, we'll dive deeper into Seats.aero and how it helps you snag these amazing deals.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m1a2'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m2a1'; window.scrollTo(0,0)" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center gap-2">Next Module <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+<!-- MODULE 2 LESSON 1 - FULL CONTENT -->
+            <div x-show="currentLesson=='m2a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2 • Lesson 1</p><h1 class="text-2xl font-bold">Setting Up Seats.aero for Maximum Results</h1></div>
+                
+                <p>Welcome to the first step in mastering Seats.aero, the tool that'll turn your travel dreams into reality without breaking the bank. If you've ever wondered how some people snag insanely cheap flights – like New York to Tokyo for three hundred dollars or London to Cape Town for twenty thousand miles – the answer is in the right Seats.aero setup. In this lesson, you'll learn exactly how to access and configure the app to maximize your chances of finding the best deals, no matter where you are in the world. Think of Seats.aero as your opportunity radar: with the right tweaks, it guides you straight to the cheapest tickets.</p>
+                
+                <p>What is Seats.aero? It's an online platform that tracks cheap airline tickets in real time, especially award tickets (paid with miles) and cash promos. Unlike sites like Kayak or Expedia that show standard prices, Seats.aero scans global loyalty programs (like Star Alliance, Oneworld, SkyTeam) and airline partnerships, uncovering deals you'd miss on your own. It's global, working for any route from any country, and so user-friendly that beginners can master it in minutes.</p>
+                
+                <h2>How to Access Seats.aero</h2>
+                <ol>
+                    <li>Open your browser on phone or computer and go to www.seats.aero.</li>
+                    <li>Click "Sign Up" in the top right and create a free account with your email and a password.</li>
+                    <li>After logging in, you'll see a dashboard with fields for origin city, destination, dates, and ticket type (miles or cash).</li>
+                    <li>If you prefer the mobile app, download it from the App Store (iOS) or Google Play (Android) by searching "Seats.aero".</li>
+                </ol>
+                
+                <h2>How to Set Up for Maximum Results</h2>
+                <p>The right configuration is what makes Seats.aero shine. Here's the step-by-step:</p>
+                <ol>
+                    <li><strong>Choose your origin city:</strong> In the "From" field, type your airport code (e.g., JFK for New York, LHR for London, NRT for Tokyo). If you don't know the code, start typing the city name, and the system suggests options.</li>
+                    <li><strong>Set flexible destinations:</strong> In the "To" field, pick a specific destination (e.g., Paris, CDG) or select "Anywhere" to see global deals. This is perfect if you want the cheapest spot available.</li>
+                    <li><strong>Adjust dates:</strong> Check "Flexible Dates" to view flights over a range of days or months. For example, a Los Angeles to Bangkok flight might cost one thousand two hundred dollars on a fixed date, but four hundred dollars a week earlier or later.</li>
+                    <li><strong>Select ticket type:</strong> Choose "Award Tickets" (miles awards) or "Paid Tickets" (cash). For miles, filter by programs like United MileagePlus or British Airways Avios.</li>
+                    <li><strong>Set alerts:</strong> Click the bell icon to create price alerts. Enter your route (e.g., Sydney to Paris) and max price (e.g., twenty-five thousand miles or five hundred dollars). Seats.aero notifies you by email when a deal hits.</li>
+                </ol>
+                
+                <p>What's this setup for? Configuring Seats.aero properly is like sharpening a knife before cutting: it ensures precise, fast results. For example, imagine living in Toronto and wanting Rome. After setting Seats.aero with "Toronto (YYZ)" as origin, "Rome (FCO)" as destination, and flexible dates, the app shows an Air Canada flight for fifteen thousand miles + sixty dollars in fees, while the regular price would be nine hundred dollars. With alerts, you don't have to keep checking – Seats.aero works for you.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Say you're in Singapore dreaming of Bali beaches. Go to www.seats.aero, set an alert for "Singapore (SIN) to Denpasar (DPS)", select "Flexible Dates" and "Award Tickets". In a few days, you get an email showing a flight for eight thousand miles on Singapore Airlines, saving eighty percent compared to the four hundred dollar cash price. All with a few clicks, no hassle.</p></div>
+                
+                <p>Why does this work? Seats.aero uses tech to scan thousands of flights and loyalty programs in real time, something impossible manually. It's built for global travelers, working for routes from Beijing to Miami or Dubai to Sydney. No matter where you are, Seats.aero gives you access to deals airlines hide behind the scenes.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, create your account, and set up a search for a dream destination (e.g., Paris, Tokyo, New York). Try flexible dates and alerts filters. No need to book yet – just feel the power of real deals popping up on your screen.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m1a3'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m2a2'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 2 LESSON 2 - FULL CONTENT -->
+            <div x-show="currentLesson=='m2a2'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2 • Lesson 2</p><h1 class="text-2xl font-bold">Search Strategies: Finding Unbeatable Deals</h1></div>
+                
+                <p>Now that you know how to set up Seats.aero, it's time to level up and master search strategies that turn good deals into true steals. Think of Seats.aero as a treasure map: it shows where the gold is, but the right strategies lead you straight to the chest. In this lesson, you'll learn advanced techniques to find unbeatable airline tickets, whether in miles or cash, for any destination worldwide. From London to New York flights for two hundred dollars to award tickets to Australia for fifteen thousand miles, you're about to become a pro at saving.</p>
+                
+                <p>Why are search strategies important? Seats.aero is powerful, but the best results come when you use it smartly. Airlines offer thousands of daily flights, and prices vary by dates, classes, loyalty programs, and even nearby airports. Without strategy, you might miss killer deals. With the right techniques, you can save up to eighty percent, like a Paris to Tokyo flight for twenty-five thousand miles instead of one thousand five hundred dollars.</p>
+                
+                <h2>How to Use Search Strategies in Seats.aero</h2>
+                <ol>
+                    <li><strong>Access Seats.aero:</strong> Go to www.seats.aero, log in, and head to the "Search Flights" tab.</li>
+                    <li><strong>Use alternate airports:</strong> Instead of just the main airport (e.g., JFK in New York), include nearby ones (e.g., Newark, EWR). In the "From" or "To" field, click "Nearby Airports" to expand options. For example, a Miami (MIA) to London flight might cost one thousand dollars, but from Fort Lauderdale (FLL), forty kilometers away, it could be four hundred dollars.</li>
+                    <li><strong>Explore flexible dates:</strong> In the "Dates" filter, select "Flexible" and pick a range (e.g., ±three days or one month). This shows cheaper flights on nearby days. For example, a Sydney to Los Angeles flight might cost one thousand two hundred dollars on Friday, but five hundred dollars on Tuesday.</li>
+                    <li><strong>Filter by cabin class:</strong> In the "Cabin Class" menu, choose economy, business, or first. Premium award tickets can be surprisingly affordable. For example, a business class flight from Dubai to New York for fifty thousand miles is cheaper than three thousand dollars in cash.</li>
+                    <li><strong>Combine loyalty programs:</strong> In the "Programs" filter, select global ones like United MileagePlus, British Airways Avios, or Air Canada Aeroplan. Seats.aero shows which program has the best miles cost. For example, a Berlin to Miami flight might cost twenty thousand miles on Lufthansa, but fifteen thousand on TAP Air Portugal.</li>
+                </ol>
+                
+                <p>What are these strategies for? They supercharge Seats.aero, letting you find the best combos of price, date, and program. For example, imagine wanting Tokyo to Paris. Using "Nearby Airports," you discover flying from Tokyo (NRT) to Paris (CDG) costs thirty thousand miles, but from Osaka (KIX), five hundred kilometers away, it's twenty thousand miles. With flexible dates, you might find the same flight for three hundred fifty dollars instead of one thousand. These strategies make any destination reachable.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">You're in São Paulo wanting Bangkok. In Seats.aero, set: Origin: São Paulo (GRU) + "Nearby Airports" (includes Campinas, VCP). Destination: Bangkok (BKK). Dates: Flexible (±seven days). Program: Star Alliance (e.g., ANA Mileage Club). Result? A flight for twenty-five thousand miles + eighty dollars in fees, while the regular price would be one thousand four hundred dollars. You click the Seats.aero link, go to ANA's site, log into the loyalty program, and book in minutes.</p></div>
+                
+                <p>Why does this work? Airlines have complex partnerships, and Seats.aero simplifies it all, showing the best options in real time. It's global, working for routes like Cape Town to Sydney, Mumbai to London, or Los Angeles to Auckland. With these strategies, you not only save but gain flexibility to travel when and how you want.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, go to www.seats.aero and try a search using at least two filters (e.g., "Nearby Airports" and "Flexible Dates") for a destination you love. Note the best deal you find – it's proof you're on the path to traveling cheaper.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m2a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m2a3'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 2 LESSON 3 - FULL CONTENT -->
+            <div x-show="currentLesson=='m2a3'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2 • Lesson 3</p><h1 class="text-2xl font-bold">Avoiding Pitfalls: What NOT to Do in Seats.aero</h1></div>
+                
+                <p>You're learning to use Seats.aero like a smart traveler, finding cheap flights others only dream of. But like any adventure, there are pitfalls that can slow you down. In this lesson, we'll cover the most common mistakes when using Seats.aero and how to avoid them, ensuring you save time, money, and energy. Think of Seats.aero as a race car: it's fast and powerful, but you need to drive it carefully to reach your destination. With these tips, you'll dodge slips and turn every search into a win.</p>
+                
+                <p>Why is avoiding pitfalls important? Seats.aero is an amazing tool, but small errors can make you miss a deal or pay more than necessary. For example, ignoring hidden fees or not checking dates can turn a three hundred dollar flight into a headache. By knowing these traps, you use Seats.aero confidently, staying in control of your travels.</p>
+                
+                <h2>Main Pitfalls and How to Avoid Them</h2>
+                
+                <h3>1. Ignoring Hidden Fees</h3>
+                <ul>
+                    <li><strong>Mistake:</strong> Many award tickets look cheap (e.g., ten thousand miles) but have high fees (e.g., two hundred dollars).</li>
+                    <li><strong>Solution:</strong> In Seats.aero, always check the "Taxes & Fees" section next to each deal. For example, a London to New York flight might cost fifteen thousand miles + fifty dollars on Air Canada, but fifteen thousand miles + one hundred fifty dollars on British Airways. Pick the program with the lowest fees.</li>
+                    <li><strong>How to do it:</strong> When searching at www.seats.aero, click the deal for full details, including fees. Compare before booking.</li>
+                </ul>
+                
+                <h3>2. Not Checking Dates and Availability</h3>
+                <ul>
+                    <li><strong>Mistake:</strong> Seats.aero shows real-time flights, but deals can vanish fast. If you delay booking, you might lose a twenty thousand miles flight.</li>
+                    <li><strong>Solution:</strong> Set alerts (click the bell icon) for instant notifications. Also, always confirm availability on the airline site before transferring miles.</li>
+                    <li><strong>How to do it:</strong> Go to www.seats.aero, set an alert for your route (e.g., Miami to Paris), and check the deal on the airline site (e.g., www.united.com) as soon as you get notified.</li>
+                </ul>
+                
+                <h3>3. Limiting to One Airport</h3>
+                <ul>
+                    <li><strong>Mistake:</strong> Searching only the main airport (e.g., JFK in New York) can hide better deals at nearby ones (e.g., Newark, EWR).</li>
+                    <li><strong>Solution:</strong> Use the "Nearby Airports" filter in Seats.aero to include close options. For example, a Los Angeles (LAX) to Tokyo flight might cost one thousand dollars, but from Ontario (ONT), sixty kilometers away, four hundred dollars.</li>
+                    <li><strong>How to do it:</strong> In the "Search Flights" tab at www.seats.aero, check "Nearby Airports" and set the radius (e.g., one hundred kilometers) for more options.</li>
+                </ul>
+                
+                <h3>4. Ignoring Alternate Loyalty Programs</h3>
+                <ul>
+                    <li><strong>Mistake:</strong> Sticking to one program (e.g., United MileagePlus) can limit options.</li>
+                    <li><strong>Solution:</strong> Use the "Programs" filter in Seats.aero to compare different global alliance programs (Star Alliance, Oneworld). For example, a Sydney to London flight might cost thirty thousand miles on Qantas, but twenty thousand on Singapore Airlines.</li>
+                    <li><strong>How to do it:</strong> In Seats.aero, select "All Programs" to see every option for your route.</li>
+                </ul>
+                
+                <p>What's avoiding these pitfalls for? It ensures you get the most from Seats.aero, saving money and avoiding frustration. For example, checking fees can save one hundred dollars on a Dubai to Paris flight. Using nearby airports might halve the cost of a São Paulo to Miami trip. These strategies make Seats.aero foolproof.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Imagine wanting Berlin to Bangkok. In Seats.aero, you find a Lufthansa flight for twenty thousand miles but ignore one hundred eighty dollars in fees. Checking details, you see TAP Air Portugal offers the same for twenty thousand miles + sixty dollars. Setting an alert and using "Nearby Airports," you also find a Hamburg deal (one hundred kilometers from Berlin) for fifteen thousand miles. Result? Savings of one hundred twenty dollars and five thousand miles.</p></div>
+                
+                <p>Why does this work? Seats.aero is a global tool, but deals change fast and vary by programs and airports. Avoiding pitfalls gives you full control, ensuring you always snag the best deal, whether for Asia, Europe, or America.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero and search for a destination (e.g., Paris, Sydney). Before clicking any deal, check fees, try "Nearby Airports," and compare two loyalty programs. Note what you learn for the next lesson.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m2a2'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m2a4'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 2 LESSON 4 - FULL CONTENT -->
+            <div x-show="currentLesson=='m2a4'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2 • Lesson 4</p><h1 class="text-2xl font-bold">From App to Booking: Securing Your Cheap Ticket</h1></div>
+                
+                <p>You found an amazing deal in Seats.aero – maybe a London to New York flight for fifteen thousand miles or São Paulo to Sydney for three hundred fifty dollars. Now, it's time to turn that deal into a confirmed ticket. In this lesson, you'll learn the exact process to book your flight, avoiding mistakes and ensuring your dream trip becomes reality. Think of Seats.aero as a guide leading you to the treasure door – now, I'll show you how to open it and claim your prize.</p>
+                
+                <p>Why is booking correctly crucial? The best Seats.aero deals are like shooting stars: bright but fleeting. If you delay or mess up, you could lose hundreds or thousands in savings. For example, a Los Angeles to Paris flight for twenty thousand miles might vanish in hours. With the right steps, you book fast and confidently, whether with miles or cash, anywhere in the world.</p>
+                
+                <h2>How to Turn a Deal into a Booking</h2>
+                
+                <h3>1. Find the Deal in Seats.aero</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>Search your route (e.g., Toronto to Tokyo) with the filters you've learned (flexible dates, nearby airports, loyalty programs).</li>
+                    <li>Pick a deal, like fifteen thousand miles on Air Canada or four hundred dollars on United.</li>
+                </ul>
+                
+                <h3>2. Check the Details</h3>
+                <ul>
+                    <li>Click the deal for full info: airline, dates, times, fees, and loyalty program (e.g., Star Alliance, United MileagePlus).</li>
+                    <li>Confirm availability by clicking the Seats.aero link, which goes to the airline or partner site.</li>
+                </ul>
+                
+                <h3>3. Go to the Airline or Partner Site</h3>
+                <ul>
+                    <li>For awards, head to the loyalty program site (e.g., www.united.com for United MileagePlus). Log in with your loyalty number.</li>
+                    <li>For cash, the link might go to a partner agency (e.g., Priceline) or the airline site.</li>
+                    <li>Search the same route, dates, and class (economy, business) as shown in Seats.aero.</li>
+                </ul>
+                
+                <h3>4. Book the Ticket</h3>
+                <ul>
+                    <li>For miles: On the program site, enter trip details and confirm enough miles. For example, for a Dubai to London flight on Emirates Skywards for twenty thousand miles, log into www.emirates.com, select "Book with Miles," and finalize.</li>
+                    <li>For cash: On the airline or agency site, enter payment info and confirm.</li>
+                    <li>Always check extra fees (e.g., fifty dollars in taxes) before finalizing.</li>
+                </ul>
+                
+                <h3>5. Final Checklist</h3>
+                <ul>
+                    <li>Confirm dates and times match.</li>
+                    <li>Ensure the name on the ticket matches your passport.</li>
+                    <li>Save the booking confirmation (email or PDF).</li>
+                </ul>
+                
+                <p>What's this process for? It ensures you turn a deal into a real ticket, no surprises. Seats.aero points the way, but the final booking happens on the airline or partner site. This process is global, working for any route like Cape Town to Miami or Mumbai to Sydney, and simple enough for anyone.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Imagine in Sydney wanting Paris. In Seats.aero, find a Qantas (Oneworld) flight for twenty-five thousand miles. Click the link, go to www.qantas.com, log into Qantas Frequent Flyer, search the flight, and book with miles + seventy dollars in fees. Regular price would be one thousand three hundred dollars, but you save over one thousand dollars. If paying cash, Seats.aero might show the route for four hundred fifty dollars via a partner agency. Click, pay, and get confirmation in minutes.</p></div>
+                
+                <p>Why does this work? Seats.aero is like a spotlight, illuminating top deals in real time. It connects to global airline and agency systems, giving you the same tools seasoned travelers use. Whether in Tokyo, London, or São Paulo – the process is the same, and the results are real.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, find a deal for a dream destination, and follow the link to the airline or agency site. No need to book, but practice verifying the deal. This preps you to act fast on the perfect flight.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m2a3'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m2a5'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 2 LESSON 5 - IN PRACTICE -->
+            <div x-show="currentLesson=='m2a5'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 2 • Lesson 5</p><h1 class="text-2xl font-bold">In Practice</h1></div>
+                
+                <p class="text-lg text-gray-700 mb-6">Now it's time to see Seats.aero in action! Watch this video tutorial to learn how to easily search for points and miles award flights using Seats.aero.</p>
+                
+                <div class="bg-gray-100 rounded-xl p-6 mb-6">
+                    <div class="aspect-video rounded-lg overflow-hidden shadow-lg">
+                        <iframe 
+                            src="https://drive.google.com/file/d/1t6THmV50fPHX9MJShK53MCjWuxAWlqBt/preview" 
+                            width="100%" 
+                            height="100%" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen
+                            class="w-full h-full border-0">
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <p class="text-sm text-gray-600 mb-2"><strong>Video:</strong> How To Easily Search for Points and Miles Award Flights with Seats.aero (Best Tool)</p>
+                    <a href="https://drive.google.com/file/d/1t6THmV50fPHX9MJShK53MCjWuxAWlqBt/view?usp=drive_link" target="_blank" class="text-blue-600 hover:text-blue-800 underline flex items-center gap-2">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open video in Google Drive
+                    </a>
+                </div>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>After Watching:</p><p class="text-gray-700">Practice what you learned! Go to <a href="https://seats.aero" target="_blank" class="text-blue-600 underline">www.seats.aero</a> and try searching for award flights using the techniques shown in the video. This hands-on practice will help you master Seats.aero.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m2a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m3a1'; window.scrollTo(0,0)" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center gap-2">Next Module <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+<!-- MODULE 3 LESSON 1 - FULL CONTENT -->
+            <div x-show="currentLesson=='m3a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 3 • Lesson 1</p><h1 class="text-2xl font-bold">Choosing the Perfect Loyalty Program for You</h1></div>
+                
+                <p>Welcome to the heart of the miles game: picking the perfect loyalty program for you. Think of loyalty programs as a global chessboard where every move – or program – can lead to cheap or even free airline tickets. In this lesson, you'll learn how to identify, access, and use global loyalty programs like Star Alliance, Oneworld, or cards like American Express Membership Rewards to turn your dream travels into reality, no matter where you are. With the right program, you can fly London to Tokyo for twenty thousand miles or São Paulo to New York for under one hundred dollars in fees.</p>
+                
+                <h2>What is a Loyalty Program?</h2>
+                <p>It's a system from airlines or credit cards that rewards you with miles or points for flights, purchases, or other activities. These miles swap for airline tickets, upgrades, or hotels. Global programs like Star Alliance (United, Lufthansa, Air Canada) or Oneworld (American Airlines, British Airways) are ideal because miles work across partner airlines, covering routes on any continent. For example, miles earned in United MileagePlus can fly you on Singapore Airlines, giving flexibility from Dubai to Sydney or Paris to Miami.</p>
+                
+                <h2>How to Choose the Right Program</h2>
+                <p>The best depends on your profile: where you live, where you want to go, and how you earn miles (flying or spending). Here are the criteria:</p>
+                <ul>
+                    <li><strong>Frequent routes:</strong> If in Europe, programs like Lufthansa Miles & More (Star Alliance) are great for regional and transatlantic flights. For Asia, Singapore Airlines KrisFlyer is perfect.</li>
+                    <li><strong>Partners:</strong> Pick global alliance programs (Star Alliance, Oneworld, SkyTeam) for more flight options. For example, Air Canada Aeroplan miles work on forty-five Star Alliance airlines.</li>
+                    <li><strong>Credit cards:</strong> Programs like American Express Membership Rewards or Chase Ultimate Rewards transfer points to multiple airlines, like British Airways Avios or United MileagePlus.</li>
+                </ul>
+                
+                <h2>How to Access a Loyalty Program</h2>
+                <ol>
+                    <li><strong>Pick a global one.</strong> I recommend starting with:
+                        <ul>
+                            <li><strong>United MileagePlus:</strong> Go to www.united.com, click "Join MileagePlus," and sign up free with email and password.</li>
+                            <li><strong>American Express Membership Rewards:</strong> Visit www.americanexpress.com, check cards available in your country, and join the points program.</li>
+                            <li><strong>British Airways Avios:</strong> Go to www.britishairways.com, click "Executive Club," and create an account.</li>
+                        </ul>
+                    </li>
+                    <li>After signing up, you get a loyalty number for earning and redeeming miles.</li>
+                    <li>Download the airline app (e.g., United or British Airways) from the App Store or Google Play to manage your account.</li>
+                </ol>
+                
+                <h2>How to Use the Program</h2>
+                <p>After enrolling, earn miles by flying with the airline or partners, using affiliated cards, or shopping at partners. To redeem, log into the program site (e.g., www.united.com), go to "Book with Miles," and search your route. For example, a New York to Paris flight might cost fifteen thousand miles + sixty dollars in fees on United, while cash would be eight hundred dollars.</p>
+                
+                <p>What's this for? Loyalty programs are the key to cheap tickets. For example, with twenty-five thousand miles in Singapore Airlines KrisFlyer, fly Singapore to Bali, saving four hundred dollars. Since they're global, they work for anyone from Tokyo to São Paulo. Seats.aero complements this, showing which programs have the best deals for your route.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Imagine in Berlin wanting Rio de Janeiro. Sign up for TAP Miles&Go (www.flytap.com) since TAP partners with Star Alliance and has direct Brazil flights. In Seats.aero, find a flight for twenty thousand miles + seventy dollars. Log into TAP's site, book, and save one thousand dollars. For flexibility, American Express Membership Rewards lets you transfer points to TAP or others like United for the same route.</p></div>
+                
+                <p>Why does this work? Global programs like Star Alliance or Amex partner with dozens of airlines and banks, giving a world of options. With Seats.aero, you find the best ways to use those miles, ensuring savings on any destination.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, go to www.united.com or www.americanexpress.com and create an account in a loyalty program. Note your loyalty number – it's your first move in the miles game.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m2a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m3a2'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 3 LESSON 2 - FULL CONTENT -->
+            <div x-show="currentLesson=='m3a2'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 3 • Lesson 2</p><h1 class="text-2xl font-bold">Earning Miles Without Flying: Everyday Strategies</h1></div>
+                
+                <p>You don't need to fly to build up enough miles for your next trip. In this lesson, you'll discover how to turn everyday purchases – from coffee to clothes – into miles that get you to places like Paris, Tokyo, or Miami for a fraction of the cost. Think of miles as a global currency you earn effortlessly using credit cards and loyalty program partners. With these strategies, you can rack up ten thousand miles in a few months, enough for a cheap or even free flight.</p>
+                
+                <p>Why is earning miles without flying powerful? Many think miles only come from flights, but smart travelers know daily life is a goldmine. Global programs like United MileagePlus, British Airways Avios, or American Express Membership Rewards offer ways to earn miles on supermarket runs, online shopping, or service subscriptions. This means even without traveling, you can save up miles to fly London to New York or Sydney to Bali almost free.</p>
+                
+                <h2>How to Earn Miles Without Flying</h2>
+                
+                <h3>1. Use Affiliated Credit Cards</h3>
+                <ul>
+                    <li><strong>What it is:</strong> Cards like American Express, Chase, or Visa Signature give points per dollar (or equivalent) spent, transferable to airline programs.</li>
+                    <li><strong>How to access:</strong> Visit www.americanexpress.com or www.chase.com, check cards in your country (e.g., Amex Gold, Chase Sapphire), and apply.</li>
+                    <li><strong>How to use:</strong> Use the card for daily buys (e.g., groceries, gas). For example, Amex Gold gives three points per dollar on restaurants. Spending one thousand dollars monthly earns three thousand points, transferable to three thousand miles in United MileagePlus.</li>
+                </ul>
+                
+                <h3>2. Shop via Online Partners</h3>
+                <ul>
+                    <li><strong>What it is:</strong> Programs like British Airways Avios or United MileagePlus have shopping portals (e.g., shop.britishairways.com, shopping.united.com) giving miles for buys at stores like Amazon, Walmart, or Nike.</li>
+                    <li><strong>How to access:</strong> Go to the program's portal (e.g., shopping.united.com), log in with your loyalty number, and click the store link.</li>
+                    <li><strong>How to use:</strong> Shop normally through the portal. For example, spending one hundred dollars on Amazon via United's portal earns five hundred miles.</li>
+                </ul>
+                
+                <h3>3. Take Advantage of Transfer Bonuses</h3>
+                <ul>
+                    <li><strong>What it is:</strong> Programs like Amex Membership Rewards offer bonuses when transferring points to airlines. For example, transfer ten thousand points and get twelve thousand miles.</li>
+                    <li><strong>How to access:</strong> Log into www.americanexpress.com, go to "Transfer Points," and pick a partner (e.g., Singapore Airlines KrisFlyer).</li>
+                    <li><strong>How to use:</strong> Transfer during promotions (announced via email or site).</li>
+                </ul>
+                
+                <p>What's this for? These strategies turn daily spending into miles that become cheap tickets. For example, with ten thousand miles earned in three months via an Amex card, fly Los Angeles to Cancún. Since programs are global, they work anywhere from Tokyo to São Paulo.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Imagine in London using an American Express Membership Rewards card. Spending two thousand dollars monthly on normal buys (groceries, clothes) earns six thousand points in three months. During a promo, transfer to British Airways Avios for seven thousand two hundred miles. In Seats.aero, find a London to Rome flight for seven thousand miles + fifty dollars, saving four hundred dollars. All without flying.</p></div>
+                
+                <p>Why does this work? Global programs like Amex and United partner with stores and banks in dozens of countries, making miles earning accessible to all. Paired with Seats.aero, you maximize every mile's value for cheap flights anywhere.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, go to www.americanexpress.com or shopping.united.com and explore earning miles on usual purchases. Pick one strategy (card or portal) and start building your first miles.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m3a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m3a3'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 3 LESSON 3 - FULL CONTENT -->
+            <div x-show="currentLesson=='m3a3'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 3 • Lesson 3</p><h1 class="text-2xl font-bold">Booking Tickets with Miles: The Definitive Step-by-Step</h1></div>
+                
+                <p>Now that you know how to pick a loyalty program and earn miles, it's time to turn those miles into cheap or free airline tickets. Booking with miles is like trading currency in a global travel market: with the right steps, you can fly New York to Paris, Dubai to Sydney, or São Paulo to Tokyo for a fraction. In this lesson, you'll get the definitive step-by-step for using miles in global programs like United MileagePlus or Star Alliance, paired with Seats.aero for the best deals. We'll keep it simple, practical, and foolproof.</p>
+                
+                <p>Why is booking with miles so powerful? Miles are a shortcut to affordable travel. A flight costing one thousand two hundred dollars in cash can be booked for twenty thousand miles + seventy dollars in fees. Global programs like Star Alliance or British Airways Avios let you use miles on dozens of airlines, covering any destination. Seats.aero makes it even easier, showing top redemptions in real time.</p>
+                
+                <h2>How to Book Tickets with Miles</h2>
+                
+                <h3>1. Find the Deal in Seats.aero</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>Search your route (e.g., Toronto to Rome) with filters like "Award Tickets" and "Flexible Dates".</li>
+                    <li>The app shows options, like fifteen thousand miles on Air Canada Aeroplan or twenty thousand on United MileagePlus.</li>
+                </ul>
+                
+                <h3>2. Go to the Loyalty Program Site</h3>
+                <ul>
+                    <li>Click the Seats.aero deal link, which takes you to the airline site (e.g., www.united.com for United MileagePlus).</li>
+                    <li>Log in with your loyalty number.</li>
+                    <li>Go to "Book with Miles" and enter trip details (origin, destination, dates).</li>
+                </ul>
+                
+                <h3>3. Confirm Availability</h3>
+                <ul>
+                    <li>Verify the Seats.aero deal is still there. For example, a London to Los Angeles flight for twenty thousand miles on British Airways.</li>
+                    <li>Check fees (e.g., sixty dollars) and required miles.</li>
+                </ul>
+                
+                <h3>4. Finalize the Booking</h3>
+                <ul>
+                    <li>Enter personal info (name, passport) and pay fees with a credit card.</li>
+                    <li>Confirm and get your e-ticket by email.</li>
+                </ul>
+                
+                <h2>How to Calculate a Mile's Real Value</h2>
+                <p>Divide the regular flight price by miles used. For example, a Sydney to Paris flight costs one thousand five hundred dollars or twenty-five thousand miles + eighty dollars. Without fees, each mile is worth (one thousand five hundred - eighty) ÷ twenty-five thousand = zero point zero five seven dollars. If a mile is worth over zero point zero two dollars, it's a good deal. Seats.aero helps find high-value redemptions.</p>
+                
+                <p>What's this for? Booking with miles slashes travel costs. For example, with fifteen thousand miles in Singapore Airlines KrisFlyer, fly Singapore to Bali, saving four hundred dollars. Since programs are global, use London-earned miles for São Paulo to Miami flights if in the same program or alliance.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Berlin to Miami. In Seats.aero, find a Lufthansa (Star Alliance) flight for twenty thousand miles. Go to www.lufthansa.com, log into Miles & More, search the route, and book with miles + seventy dollars in fees. Regular price would be nine hundred dollars, but you save eight hundred thirty dollars. If using Amex Membership Rewards points, transfer to Lufthansa in minutes.</p></div>
+                
+                <p>Why does this work? Global programs like Star Alliance partner with dozens of airlines, and Seats.aero shows best redemptions in real time. This ensures cheap flights anywhere.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, search a route (e.g., Paris to New York) with "Award Tickets," and click the program site link (e.g., www.united.com). Practice searching a miles flight without booking to get familiar.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m3a2'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m3a4'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 3 LESSON 4 - FULL CONTENT -->
+            <div x-show="currentLesson=='m3a4'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 3 • Lesson 4</p><h1 class="text-2xl font-bold">Buying Miles on the Spot: Cheap Tickets Without Waiting</h1></div>
+                
+                <p>You don't have to wait months to earn miles and travel cheap. In this lesson, you'll learn a powerful strategy: buying miles instantly to book airline tickets for a fraction of the price. Think of miles as a discount ticket you can purchase anytime, turning a one thousand dollar flight into a two hundred dollar + miles trip. Using global programs like United MileagePlus or British Airways Avios with Seats.aero, you can book cheap flights to any destination from Tokyo to Paris without delay. We'll keep it simple and practical.</p>
+                
+                <p>Why buy miles on the spot? Not everyone has time to earn miles through flights or spending. Buying directly lets you grab amazing deals right away. For example, a Dubai to London flight might cost one thousand two hundred dollars, but buying twenty thousand miles for four hundred dollars lets you book it with miles + seventy dollars in fees, saving seven hundred thirty dollars. Global programs make this available anywhere, and Seats.aero finds the best opportunities.</p>
+                
+                <h2>How to Buy Miles and Book Tickets</h2>
+                
+                <h3>1. Find a Deal in Seats.aero</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>Search your route (e.g., Sydney to Los Angeles) with "Award Tickets" filter.</li>
+                    <li>Spot a deal, like twenty-five thousand miles on United MileagePlus + eighty dollars in fees.</li>
+                </ul>
+                
+                <h3>2. Go to the Program Site</h3>
+                <ul>
+                    <li>Click the deal link to the program site (e.g., www.united.com for United MileagePlus).</li>
+                    <li>Log in with your loyalty number.</li>
+                </ul>
+                
+                <h3>3. Buy Miles</h3>
+                <ul>
+                    <li>On the program site, go to "Buy Miles" (e.g., www.united.com/en/us/buy-miles).</li>
+                    <li>Enter the needed amount (e.g., twenty-five thousand). Cost varies, usually zero point zero two to zero point zero three five dollars per mile. For example, twenty-five thousand miles cost five hundred dollars.</li>
+                    <li>Pay with credit card; miles credit in minutes.</li>
+                </ul>
+                
+                <h3>4. Book the Ticket</h3>
+                <ul>
+                    <li>Return to "Book with Miles," enter trip details, and book with bought miles + fees.</li>
+                    <li>Confirm info (name, passport) and get e-ticket by email.</li>
+                </ul>
+                
+                <h2>How to Know if It's Worth It</h2>
+                <p>Compare total cost (bought miles + fees) to regular price. For example:</p>
+                <ul>
+                    <li>São Paulo to Miami flight: one thousand dollars cash.</li>
+                    <li>In Seats.aero: twenty thousand miles + seventy dollars on TAP Miles&Go.</li>
+                    <li>Buy twenty thousand miles on TAP: four hundred dollars (at zero point zero two dollars per mile).</li>
+                    <li>Total: four hundred + seventy = four hundred seventy dollars, saving five hundred thirty dollars.</li>
+                </ul>
+                <p>If each mile is worth over zero point zero two dollars in redemption (e.g., one thousand ÷ twenty thousand = zero point zero five dollars), it's a smart buy.</p>
+                
+                <p>What's this for? Buying miles instantly lets anyone anywhere travel cheap without waiting. For example, buy fifteen thousand miles in British Airways Avios for three hundred dollars to fly London to Rome, saving four hundred dollars. Global programs make it work from Dubai to New York or Singapore to Bali.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Cape Town to Paris. In Seats.aero, find an Air France (SkyTeam) flight for twenty thousand miles + sixty dollars. Go to www.airfrance.com, "Buy Miles," purchase twenty thousand for four hundred dollars. Log in, book with miles + fees, and save eight hundred dollars vs. the one thousand two hundred sixty dollar regular price. Whole process under thirty minutes.</p></div>
+                
+                <p>Why does this work? Global programs like United, TAP, or Air France sell miles at affordable rates, and Seats.aero ensures high-value redemptions. It's like an instant discount, available worldwide.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, search a route, and note a deal in miles. Visit the program site and check the cost of buying needed miles. Compare with regular price to calculate savings.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m3a3'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m3a5'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 3 LESSON 5 - FULL CONTENT -->
+            <div x-show="currentLesson=='m3a5'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 3 • Lesson 5</p><h1 class="text-2xl font-bold">In Practice: Should You Buy Airline Miles or Hotel Points?</h1></div>
+                
+                <p>This lesson provides a practical demonstration of when and how to buy airline miles or hotel points. Watch the video below to see real-world examples and learn the best strategies for maximizing your travel value.</p>
+                
+                <div class="relative" style="padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                    <iframe src="https://drive.google.com/file/d/1GnmXcnztHc5H_pPiQPQO6BiAzy0Ugp1o/preview" width="640" height="360" allow="autoplay" class="absolute top-0 left-0 w-full h-full" frameborder="0"></iframe>
+                </div>
+                <p class="text-center text-gray-600 mt-4">If the video does not load, you can access it directly: <a href="https://drive.google.com/file/d/1GnmXcnztHc5H_pPiQPQO6BiAzy0Ugp1o/view?usp=drive_link" target="_blank" class="text-blue-600 underline">Watch on Google Drive</a></p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">After watching the video, analyze your own travel goals. Determine whether buying airline miles or hotel points makes more sense for your upcoming trips. Use Seats.aero to find award availability and calculate the value of purchasing miles versus paying cash.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m3a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m4a1'; window.scrollTo(0,0)" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center gap-2">Next Module <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+<!-- MODULE 4 LESSON 1 - FULL CONTENT -->
+            <div x-show="currentLesson=='m4a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 4 • Lesson 1</p><h1 class="text-2xl font-bold">Building Your Strategic Traveler Mindset</h1></div>
+                
+                <p>Planning a dream trip doesn't have to be expensive or complicated. In this lesson, you'll learn to build a strategic traveler mindset, turning desires – like seeing the Eiffel Tower, exploring Bali beaches, or walking the Great Wall of China – into concrete, affordable plans. Think of yourself as a travel architect: with tools like Seats.aero and global loyalty programs, you can design amazing itineraries spending a fraction of what others do. Let's start aligning your goals with practical strategies to travel the world economically.</p>
+                
+                <p>Why does a strategic mindset matter? Cheap travel isn't just finding a promo flight – it's planning smart to match dreams, budget, and time. Without strategy, you might pay one thousand two hundred dollars for New York to Tokyo, but with the right mindset, find it for three hundred dollars or twenty thousand miles via Seats.aero. This mindset gives clarity to set priorities and act confidently, whether for a weekend getaway or round-the-world trip.</p>
+                
+                <h2>How to Build Your Strategic Mindset</h2>
+                
+                <h3>1. Define Your Travel Goals</h3>
+                <ul>
+                    <li>Ask: "What's my dream destination? How much can I spend? When do I want to go?" For example, visit Rome in six months on a five hundred dollar budget.</li>
+                    <li>Write your goal (e.g., "Fly London to Rome for under three hundred dollars").</li>
+                </ul>
+                
+                <h3>2. Use Seats.aero to Align Budget and Destination</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>In "From," enter your city (e.g., London, LHR). In "To," type destination (e.g., Rome, FCO) or "Anywhere" for cheapest spots.</li>
+                    <li>Use "Flexible Dates" filter for economical dates. For example, London to Rome might cost four hundred dollars in July, but one hundred fifty in October.</li>
+                </ul>
+                
+                <h3>3. Integrate Loyalty Programs</h3>
+                <ul>
+                    <li>Pick a global one like United MileagePlus (www.united.com) or British Airways Avios (www.britishairways.com).</li>
+                    <li>In Seats.aero, filter "Award Tickets" for awards. For example, São Paulo to Miami for fifteen thousand miles + sixty dollars in fees.</li>
+                </ul>
+                
+                <h3>4. Plan with Flexibility</h3>
+                <ul>
+                    <li>Consider nearby airports (e.g., fly from Gatwick instead of Heathrow) and alternate dates to maximize savings.</li>
+                    <li>Use "Nearby Airports" in Seats.aero for options like Stansted or Luton in London.</li>
+                </ul>
+                
+                <p>What's this mindset for? It aligns dreams with reality, ensuring every trip is cheap and memorable. For example, on a four hundred dollar budget, plan Toronto to Paris with twenty thousand miles on Air Canada Aeroplan via Seats.aero, instead of one thousand dollars. This works for any destination from Dubai to Sydney since Seats.aero and programs are global.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Imagine in Singapore dreaming of Thailand. Goal: Bangkok on three hundred dollars. In Seats.aero (www.seats.aero), set: Origin: Singapore (SIN). Destination: Bangkok (BKK). Filters: "Flexible Dates" and "Award Tickets". App shows eight thousand miles on Singapore Airlines KrisFlyer + fifty dollars in fees. Go to www.singaporeair.com, log into KrisFlyer, book, and save three hundred fifty dollars vs. four hundred dollar regular. With strategic mindset, you planned the perfect trip.</p></div>
+                
+                <p>Why does this work? Seats.aero scans global deals in real time, and programs like Star Alliance or Amex Membership Rewards offer flexibility for any route. Your strategic mindset ties these tools together, turning wishes into solid plans, whether a student in Berlin or family in São Paulo.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Write a travel goal (e.g., "Visit Paris in two thousand twenty-six for under four hundred dollars"). Go to www.seats.aero, do an initial search for your destination, and note a fitting deal. This is your first step to the next adventure.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m3a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m4a2'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 4 LESSON 2 - FULL CONTENT -->
+            <div x-show="currentLesson=='m4a2'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 4 • Lesson 2</p><h1 class="text-2xl font-bold">Leveraging Airline Alliances and Partners</h1></div>
+                
+                <p>Airlines don't work alone – they form global alliances like Star Alliance, Oneworld, and SkyTeam, like sky highways connecting destinations and offering more cheap flight options. In this lesson, you'll learn to tap these alliances and partners for affordable tickets with miles or cash, using Seats.aero to spot the best opportunities. From London to Tokyo flights for twenty thousand miles to São Paulo to Miami for three hundred dollars, airline partnerships are your shortcut to the world.</p>
+                
+                <h2>What Are Alliances and Partners?</h2>
+                <p>Alliances are groups of airlines sharing miles and flights. For example:</p>
+                <ul>
+                    <li><strong>Star Alliance:</strong> Includes United, Lufthansa, Air Canada, Singapore Airlines (forty-five airlines).</li>
+                    <li><strong>Oneworld:</strong> Includes American Airlines, British Airways, Qatar Airways.</li>
+                    <li><strong>SkyTeam:</strong> Includes Delta, Air France, KLM.</li>
+                </ul>
+                <p>With miles from one program (e.g., United MileagePlus), fly any Star Alliance partner like Lufthansa. Partners also include credit cards like American Express Membership Rewards, transferring points to multiple alliances.</p>
+                
+                <h2>How to Access Alliances and Partners</h2>
+                <ol>
+                    <li><strong>Pick a global alliance program:</strong>
+                        <ul>
+                            <li>Star Alliance: Sign up for United MileagePlus at www.united.com or Air Canada Aeroplan at www.aircanada.com.</li>
+                            <li>Oneworld: Create an account in British Airways Executive Club at www.britishairways.com.</li>
+                            <li>SkyTeam: Sign up for Delta SkyMiles at www.delta.com.</li>
+                        </ul>
+                    </li>
+                    <li>Go to Seats.aero at www.seats.aero and log in.</li>
+                    <li>In the "Programs" filter, select the alliance (e.g., Star Alliance) or specific program (e.g., United MileagePlus).</li>
+                </ol>
+                
+                <h2>How to Use Alliances in Seats.aero</h2>
+                <ol>
+                    <li>Search your route (e.g., Dubai to New York).</li>
+                    <li>In Seats.aero, filter "Award Tickets" and select alliance (e.g., Star Alliance).</li>
+                    <li>The app shows flights from all partners. For example, Dubai to New York might cost twenty-five thousand miles on United or twenty thousand on TAP Air Portugal, both Star Alliance.</li>
+                    <li>Click the deal link, go to the program site (e.g., www.united.com), log in, and book with miles or cash.</li>
+                </ol>
+                
+                <p>What are alliances for? They multiply options. For example, with Air Canada Aeroplan miles, fly Singapore Airlines or Lufthansa, covering Sydney to Paris or Cape Town to Miami. Seats.aero simplifies, showing the best partner cost in miles or cash. It's global, working for anyone from Tokyo to São Paulo.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Berlin to Bangkok. In Seats.aero, set: Origin: Berlin (BER). Destination: Bangkok (BKK). Filter: Star Alliance, "Award Tickets". App shows twenty thousand miles on Thai Airways (Star Alliance partner) + seventy dollars in fees. Go to www.staralliance.com, click "Book and Fly," log into Lufthansa Miles & More, and book. Regular price one thousand four hundred dollars, but save one thousand three hundred thirty dollars.</p></div>
+                
+                <p>Why does this work? Alliances like Star Alliance cover over one thousand destinations with dozens of airlines, and Seats.aero scans all in real time. This ensures cheap flights for business in London or vacations in Bali.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, pick an alliance (e.g., Star Alliance), and search a route (e.g., Miami to London). Note partner airline options and compare miles costs. This preps you to use alliances like a pro.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m4a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m4a3'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 4 LESSON 3 - FULL CONTENT -->
+            <div x-show="currentLesson=='m4a3'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 4 • Lesson 3</p><h1 class="text-2xl font-bold">Group or Family Travel: Saving at Scale</h1></div>
+                
+                <p>Traveling with friends or family is one of the best ways to make unforgettable memories, but costs can scare you off. In this lesson, you'll learn to use Seats.aero and global loyalty programs to plan group or family trips cheaper, whether a reunion in Paris or vacation in Cancún. Think of it as orchestrating a savings symphony: each passenger a note, and with the right strategies, you create affordable travel harmony. We'll make it simple and applicable worldwide.</p>
+                
+                <p>Why is group planning different? Traveling with more people means coordinating multiple tickets, but the same tools – Seats.aero and programs like Star Alliance – can save thousands. For example, four people from New York to Rome might cost four thousand dollars, but with miles and Seats.aero, drop to eight hundred dollars total. Strategies you've learned scale up, and today we'll adapt for groups.</p>
+                
+                <h2>How to Plan Group Travel with Seats.aero</h2>
+                
+                <h3>1. Define Group and Budget</h3>
+                <ul>
+                    <li>Decide how many (e.g., four family members) and total budget (e.g., one thousand dollars).</li>
+                    <li>Pick destination (e.g., London, Tokyo) or use "Anywhere" in Seats.aero for cheapest.</li>
+                </ul>
+                
+                <h3>2. Use Seats.aero for Multiple Tickets</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>In "Passengers," select number (e.g., four adults).</li>
+                    <li>Search route (e.g., São Paulo to Miami) with "Flexible Dates" and "Award Tickets" for miles or "Paid Tickets" for cash.</li>
+                    <li>App shows flights with availability for all. For example, fifteen thousand miles per person on United MileagePlus.</li>
+                </ul>
+                
+                <h3>3. Combine Miles from Global Programs</h3>
+                <ul>
+                    <li>Use one program's miles (e.g., Air Canada Aeroplan) to book all on partners (e.g., United, Lufthansa).</li>
+                    <li>Go to www.aircanada.com, log in, and search "Multi-Passenger Booking" for up to eight tickets with miles.</li>
+                </ul>
+                
+                <h3>4. Consider Family Accounts</h3>
+                <ul>
+                    <li>Programs like British Airways Avios allow "Household Account" at www.britishairways.com, pooling miles from up to six people.</li>
+                </ul>
+                
+                <p>What's this for? Group planning saves at scale. For example, four people from Sydney to Paris might spend five thousand dollars, but with sixty thousand miles (fifteen thousand each) on Qantas Frequent Flyer + two hundred dollars in fees, total eight hundred dollars. Seats.aero ensures group availability, and global programs work anywhere.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Planning vacation for four from Toronto to Cancún. In Seats.aero, set: Origin: Toronto (YYZ). Destination: Cancun (CUN). Passengers: four adults. Filters: Star Alliance, "Award Tickets". App shows twelve thousand miles per person on Air Canada + fifty dollars fees each. Go to www.aircanada.com, log into Aeroplan, book forty-eight thousand miles total + two hundred dollars, saving three thousand two hundred dollars vs. three thousand four hundred regular.</p></div>
+                
+                <p>Why does this work? Alliances like Star Alliance and Oneworld offer multi-passenger availability, and Seats.aero simplifies group searches. Global programs pool miles, making family travel affordable from Dubai, London, or São Paulo.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, search a route for two or more (e.g., London to Rome), and note a group deal. Visit program site (e.g., www.britishairways.com) and explore multi-passenger booking.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m4a2'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m4a4'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 4 LESSON 4 - FULL CONTENT -->
+            <div x-show="currentLesson=='m4a4'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 4 • Lesson 4</p><h1 class="text-2xl font-bold">Overcoming Obstacles: What to Do When a Deal Disappears</h1></div>
+                
+                <p>You spotted the perfect Seats.aero deal – a Dubai to Paris flight for fifteen thousand miles – but when booking, it's gone. Don't worry! In this lesson, you'll learn to overcome issues like sold-out flights or fast-changing prices, using Seats.aero and global loyalty programs for alternatives. Think of it as navigating a river of opportunities: if one path blocks, find another to your destination. We'll ensure nothing stops your economical travels.</p>
+                
+                <p>Why do obstacles happen? The aviation market is dynamic – awards and promos shift in hours. A London to New York flight for twenty thousand miles might sell out quick, but with strategies, find equally cheap options. Seats.aero and programs like Star Alliance are your tools to handle challenges, saving anywhere.</p>
+                
+                <h2>How to Overcome Obstacles</h2>
+                
+                <h3>1. React Fast with Alerts</h3>
+                <ul>
+                    <li><strong>Issue:</strong> Seats.aero deals vanish quickly.</li>
+                    <li><strong>Solution:</strong> Set alerts at www.seats.aero. In search, enter route (e.g., Miami to London), select "Award Tickets" or "Paid Tickets," click bell for email notifications.</li>
+                    <li><strong>How:</strong> When alerted, go to program site (e.g., www.united.com) and book immediately.</li>
+                </ul>
+                
+                <h3>2. Explore Alternate Routes</h3>
+                <ul>
+                    <li><strong>Issue:</strong> Desired flight (e.g., São Paulo to Miami) sold out.</li>
+                    <li><strong>Solution:</strong> In Seats.aero, use "Nearby Airports" for close destinations (e.g., Fort Lauderdale, FLL). FLL flight might cost twelve thousand miles vs. twenty thousand for Miami.</li>
+                    <li><strong>How:</strong> At www.seats.aero, check "Nearby Airports" (e.g., one hundred kilometers) and research.</li>
+                </ul>
+                
+                <h3>3. Try Other Loyalty Programs</h3>
+                <ul>
+                    <li><strong>Issue:</strong> Chosen program (e.g., United) no availability.</li>
+                    <li><strong>Solution:</strong> In Seats.aero, filter other alliance airlines (e.g., Lufthansa, Air Canada in Star Alliance).</li>
+                    <li><strong>How:</strong> Go to alternate site (e.g., www.lufthansa.com) and search route with miles.</li>
+                </ul>
+                
+                <h3>4. Consider Flights with Stops</h3>
+                <ul>
+                    <li><strong>Issue:</strong> Direct flights expensive or sold out.</li>
+                    <li><strong>Solution:</strong> In Seats.aero, uncheck "Non-Stop Flights" for stops, often cheaper. For example, Sydney to Paris via Singapore for twenty thousand miles vs. thirty thousand direct.</li>
+                </ul>
+                
+                <p>What's this for? These strategies ensure endless options. For example, if Toronto to Cancún for fifteen thousand miles sells out, find Orlando for twelve thousand miles + fifty dollars, just three hundred kilometers away. Works globally from Tokyo to London or Dubai to Miami.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Cape Town to New York, but United twenty-five thousand miles deal gone. In Seats.aero: Set route alert. Use "Nearby Airports" for Newark (EWR) at twenty thousand miles. Try TAP Air Portugal (Star Alliance) at www.flytap.com for twenty-two thousand miles + sixty dollars, saving one thousand two hundred dollars vs. one thousand two hundred eighty regular.</p></div>
+                
+                <p>Why does this work? Seats.aero scans thousands in real time, and global alliances like Star Alliance offer alternatives across dozens of airlines. These strategies keep you in control, saving despite surprises.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, search a route (e.g., Paris to Miami), and practice alternatives (nearby airport or program). Note the new deal to feel confident.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m4a3'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m5a1'; window.scrollTo(0,0)" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center gap-2">Next Module <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+<!-- MODULE 5 LESSON 1 - FULL CONTENT -->
+            <div x-show="currentLesson=='m5a1'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 5 • Lesson 1</p><h1 class="text-2xl font-bold">Automating Your Deal Search</h1></div>
+                
+                <p>Welcome to the smart traveler lifestyle, where finding cheap flights is as routine as checking email. In this lesson, you'll learn to automate deal searches in Seats.aero, making it a simple, ongoing process that keeps you ready to travel. Think of Seats.aero as your personal travel assistant working twenty-four seven, finding London to Tokyo for three hundred dollars or São Paulo to Paris for fifteen thousand miles. With alerts and routines, you save time and money, traveling anywhere easily.</p>
+                
+                <p>Why automate? The ticket market changes constantly, and top deals – like New York to Rome for twenty thousand miles – disappear fast. Manual daily checks take time, but automation does it for you. With alerts, get notifications for cheap flights in cash or miles to favorite destinations, effortlessly. Perfect for global travelers from Dubai to Sydney wanting savings without hassle.</p>
+                
+                <h2>How to Automate in Seats.aero</h2>
+                
+                <h3>1. Access Seats.aero</h3>
+                <ul>
+                    <li>Go to www.seats.aero on phone or computer and log in with email and password.</li>
+                    <li>Or download the app from App Store (iOS) or Google Play (Android) searching "Seats.aero".</li>
+                </ul>
+                
+                <h3>2. Set Price Alerts</h3>
+                <ul>
+                    <li>In "Search Flights" tab, enter origin (e.g., London, LHR) and destination (e.g., Tokyo, NRT).</li>
+                    <li>Use filters like "Flexible Dates" and "Award Tickets" (miles) or "Paid Tickets" (cash).</li>
+                    <li>Click bell next to search and "Create Alert".</li>
+                    <li>Set max price (e.g., twenty-five thousand miles or four hundred dollars) and frequency (e.g., daily).</li>
+                    <li>Save; Seats.aero emails when deals hit.</li>
+                </ul>
+                
+                <h3>3. Create a Weekly Routine</h3>
+                <ul>
+                    <li>Spend ten minutes weekly reviewing alerts and tweaking searches. Add new destinations or change dates.</li>
+                    <li>Use "Anywhere" filter for global cheap spots, like Bali for two hundred dollars or Paris for fifteen thousand miles.</li>
+                </ul>
+                
+                <h3>4. Integrate Loyalty Programs</h3>
+                <ul>
+                    <li>Check miles balance in programs like United MileagePlus (www.united.com) or British Airways Avios (www.britishairways.com).</li>
+                    <li>When alerted, go to program site to book fast.</li>
+                </ul>
+                
+                <p>What's this for? Automation keeps you ahead of deals, ensuring cheap flights effortlessly. For example, an alert for Toronto to Cancún at twelve thousand miles saves four hundred dollars. Since Seats.aero is global, works for any route from Berlin to Bangkok or Cape Town to Miami.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Dream of Australia. In Seats.aero, set alert: Origin: New York (JFK). Destination: Sydney (SYD). Filters: "Flexible Dates", "Award Tickets", Star Alliance. Max: thirty thousand miles or five hundred dollars. Days later, email for twenty-five thousand miles on United. Go to www.united.com, log into MileagePlus, book with miles + eighty dollars fees, saving one thousand two hundred dollars vs. one thousand two hundred eighty regular. All without manual checks.</p></div>
+                
+                <p>Why does this work? Seats.aero monitors thousands in real time, and alerts ensure no missed deals. Global programs like Star Alliance make them accessible anywhere, turning cheap flight hunts automatic.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Today, go to www.seats.aero and set an alert for a dream destination (e.g., Paris, Bali). Set max price and save. Note the first alert to feel automation's power.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m4a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m5a2'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 5 LESSON 2 - FULL CONTENT -->
+            <div x-show="currentLesson=='m5a2'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 5 • Lesson 2</p><h1 class="text-2xl font-bold">Keeping the Momentum: How to Travel More and Spend Less Always</h1></div>
+                
+                <p>Traveling the world cheaper isn't a one-off – it's a lifestyle. In this lesson, you'll learn to keep momentum, weaving Seats.aero and global loyalty programs into daily life to travel more, whether five destinations yearly or monthly getaways. Think of building a cheap travel machine: once set, it runs continuously, taking you London to Tokyo, São Paulo to Miami, or Dubai to Paris for a fraction. We'll make it simple and sustainable.</p>
+                
+                <p>Why keep momentum? Smart travelers don't find one deal – they systemize for constant ones. With Seats.aero and programs like United MileagePlus or American Express Membership Rewards, plan multiple yearly trips saving up to eighty percent each. For example, Sydney to Paris might cost one thousand five hundred dollars, but with a tuned system, three hundred dollars or twenty thousand miles, repeatedly.</p>
+                
+                <h2>How to Keep Momentum</h2>
+                
+                <h3>1. Monitor Deals Regularly with Seats.aero</h3>
+                <ul>
+                    <li>Access www.seats.aero weekly and review alerts (from Lesson 1).</li>
+                    <li>Use "Anywhere" filter for global cheap destinations. For example, New York to Rome for two hundred dollars or fifteen thousand miles.</li>
+                    <li>Adjust alerts for new plans.</li>
+                </ul>
+                
+                <h3>2. Earn Miles Ongoing</h3>
+                <ul>
+                    <li>Use cards like American Express Membership Rewards (www.americanexpress.com) for points on daily spends (e.g., three points per dollar on groceries).</li>
+                    <li>Shop program portals like shopping.united.com for extra miles (e.g., five hundred miles per one hundred dollars on Amazon).</li>
+                </ul>
+                
+                <h3>3. Plan Ahead</h3>
+                <ul>
+                    <li>Make a next-year travel calendar with three to five destinations (e.g., Paris, Bali, New York).</li>
+                    <li>Use Seats.aero for deals three to six months out, when awards are more available.</li>
+                </ul>
+                
+                <h3>4. Mix Miles and Cash</h3>
+                <ul>
+                    <li>Some programs like British Airways Avios (www.britishairways.com) let you pay part miles, part cash to cut costs.</li>
+                </ul>
+                
+                <p>What's this for? Momentum lets you travel often, spending less. For example, with ten thousand monthly miles and Seats.aero alerts, do four yearly trips like London to Rome, Dubai to Bangkok, or Toronto to Cancún under one thousand dollars total. Global, for anyone from Singapore to São Paulo.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want three 2026 trips: Paris, Miami, Bali. Early year, set Seats.aero alerts for: London (LHR) to Paris (CDG): seven thousand miles on British Airways Avios. London (LHR) to Miami (MIA): twenty thousand miles on United MileagePlus. London (LHR) to Bali (DPS): twenty-five thousand miles on Singapore Airlines KrisFlyer. Use Amex card for thirty thousand points in six months, transfer to right programs, book each with miles + two hundred dollars total fees, saving three thousand five hundred dollars vs. regulars.</p></div>
+                
+                <p>Why does this work? Seats.aero monitors global deals in real time, and programs like Star Alliance or Amex offer flexibility to earn/use miles anywhere. With a continuous system, travel becomes routine, stress-free.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero and set alerts for two to three 2026 destinations. List in calendar and start earning miles with a shopping.united.com purchase. This starts your smart traveler momentum.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m5a1'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m5a3'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 5 LESSON 3 - FULL CONTENT -->
+            <div x-show="currentLesson=='m5a3'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 5 • Lesson 3</p><h1 class="text-2xl font-bold">Premium Classes for Economy Prices</h1></div>
+                
+                <p>Imagine flying New York to Paris in a lie-flat seat with gourmet meals and legroom, paying economy price. It's not a dream – it's possible with Seats.aero and global loyalty programs. In this lesson, you'll learn to use miles for business or first class at a fraction, turning trips into affordable luxury. From Dubai to Sydney or São Paulo to London, enjoy premium cabins without draining your account.</p>
+                
+                <p>Why fly premium classes? Business and first offer comfort, privacy, and exclusives, but cost thousands in cash. With miles, they're affordable. For example, Los Angeles to Tokyo business costs five thousand dollars, but fifty thousand miles on United MileagePlus is just eighty dollars in fees. Seats.aero finds these premium deals in real time.</p>
+                
+                <h2>How to Find Premium Flights with Seats.aero</h2>
+                
+                <h3>1. Access Seats.aero</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>In "Cabin Class," select "Business" or "First".</li>
+                </ul>
+                
+                <h3>2. Search Route</h3>
+                <ul>
+                    <li>Enter origin (e.g., Dubai, DXB) and destination (e.g., London, LHR).</li>
+                    <li>Use "Flexible Dates" for premium availability.</li>
+                    <li>Filter "Award Tickets" and programs like Star Alliance or Oneworld.</li>
+                </ul>
+                
+                <h3>3. Pick Best Deal</h3>
+                <ul>
+                    <li>Seats.aero shows premium like fifty thousand miles business on Lufthansa or seventy thousand on Singapore Airlines.</li>
+                    <li>Click link to book on program site (e.g., www.lufthansa.com).</li>
+                </ul>
+                
+                <h3>4. Use Earned or Bought Miles</h3>
+                <ul>
+                    <li>Log into program (e.g., United MileagePlus at www.united.com).</li>
+                    <li>If short miles, buy on site (e.g., fifty thousand for one thousand dollars, still cheaper than five thousand cash).</li>
+                </ul>
+                
+                <p>What's this for? Premium flying elevates experience with comfy seats, chef meals, and lounges at economy prices. For example, forty thousand miles on British Airways Avios for London to New York business saves four thousand dollars. Global, for routes like Singapore to Bali or Cape Town to Paris.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Toronto to Bangkok business. In Seats.aero, set: Origin: Toronto (YYZ). Destination: Bangkok (BKK). Filters: "Business Class", Star Alliance, "Award Tickets". App shows fifty thousand miles on Thai Airways + one hundred dollars fees. Go to www.staralliance.com, use Air Canada Aeroplan miles, book, save four thousand nine hundred dollars vs. five thousand regular. Includes lie-flat and VIP lounge.</p></div>
+                
+                <p>Why does this work? Global programs like Star Alliance offer premium awards with miles, and Seats.aero spots rare deals in real time. Buying miles on spot (Module 3) makes it accessible, letting anyone from Tokyo to São Paulo fly luxury.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, search route (e.g., Miami to Paris) in "Business Class," note premium miles deal. Visit program site (e.g., www.britishairways.com) to see booking. This gets you closer to affordable luxury.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m5a2'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m5a4'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 5 LESSON 4 - FULL CONTENT -->
+            <div x-show="currentLesson=='m5a4'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 5 • Lesson 4</p><h1 class="text-2xl font-bold">Traveler Community: Connecting with Other Experts</h1></div>
+                
+                <p>Being a smart traveler isn't just mastering tools like Seats.aero – it's connecting with others passionate about cheap travel. In this lesson, you'll learn to join global traveler communities like forums and online groups to swap tips, uncover strategies, and stay motivated. Think of joining a worldwide explorers club where members help find London to Sydney or São Paulo to Paris cheap flights. These connections supercharge your Seats.aero and loyalty program use.</p>
+                
+                <p>Why communities? Others faced your challenges and found tricks like mixing program miles or premium flights for twenty thousand miles. Communities like FlyerTalk or Reddit groups offer space to learn, ask, and share, making you smarter. Global, connect with people from New York, Dubai, or Tokyo using the same tools.</p>
+                
+                <h2>How to Access Traveler Communities</h2>
+                
+                <h3>1. FlyerTalk</h3>
+                <ul>
+                    <li>Go to www.flyertalk.com, a global traveler forum.</li>
+                    <li>Create free account with email and password.</li>
+                    <li>Explore topics like "Miles & Points" or "Star Alliance" for tips on programs like United MileagePlus.</li>
+                </ul>
+                
+                <h3>2. Reddit (r/churning, r/awardtravel)</h3>
+                <ul>
+                    <li>Go to www.reddit.com/r/awardtravel or www.reddit.com/r/churning.</li>
+                    <li>Create Reddit account and join discussions on miles and Seats.aero.</li>
+                </ul>
+                
+                <h3>3. Social Media Groups</h3>
+                <ul>
+                    <li>Search Facebook for "Travel Hacking" or "Frequent Flyer Miles" (use search bar at www.facebook.com).</li>
+                    <li>Join global groups to share/learn tips.</li>
+                </ul>
+                
+                <h2>How to Use Communities</h2>
+                <ol>
+                    <li><strong>Ask specific questions:</strong> E.g., "Best Star Alliance program for Miami to London miles?"</li>
+                    <li><strong>Share finds:</strong> Post Seats.aero deal like Dubai to Paris for fifteen thousand miles, ask how others booked similar.</li>
+                    <li><strong>Learn from examples:</strong> Read threads on strategies like Amex Membership Rewards for Singapore Airlines premium.</li>
+                    <li><strong>Follow relevant threads:</strong> On FlyerTalk, follow alliance forums (e.g., Oneworld); on Reddit, subscribe r/awardtravel for notifications.</li>
+                </ol>
+                
+                <p>What are communities for? They keep you updated on new strategies and deals like miles promos or Seats.aero tricks. For example, a FlyerTalk member shares Toronto to Bangkok business for fifty thousand miles, inspiring you. Global tips work for any destination from Bali to Rome.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Want Cape Town to New York. On Reddit (r/awardtravel), read post on United twenty thousand miles flight. Go to www.seats.aero, confirm, to www.united.com, log into MileagePlus, book with miles + seventy dollars fees, saving one thousand two hundred dollars. Community guided the perfect deal.</p></div>
+                
+                <p>Why does this work? Global communities gather thousands using Seats.aero and Star Alliance, sharing real-time knowledge. This boosts your cheap flight skills, keeping motivation high.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.flyertalk.com or www.reddit.com/r/awardtravel, create account, read a miles or Seats.aero thread. Post simple question like "Best program for Paris to Miami?" This connects you to the global traveler club.</p></div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m5a3'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='m5a5'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2">Next <i class="fas fa-arrow-right"></i></button></div>
+            </div></div>
+
+            <!-- MODULE 5 LESSON 5 - FULL CONTENT -->
+            <div x-show="currentLesson=='m5a5'" class="p-8"><div class="max-w-4xl mx-auto lesson-content">
+                <div class="bg-gradient-to-r from-[#00508d] to-blue-600 rounded-2xl p-6 text-white mb-8"><p class="text-blue-200 text-sm mb-1">Module 5 • Lesson 5</p><h1 class="text-2xl font-bold">Your First Cheap Flight: Time to Act!</h1></div>
+                
+                <p>The moment has come to turn everything learned into a real trip. In this lesson, you'll plan and book your first cheap flight using Seats.aero and global loyalty programs like United MileagePlus or British Airways Avios. Think of crossing a race finish line: you've trained, mastered tools, now run – or fly – to your dream spot, whether Paris, Bali, or New York. We'll create a simple, foolproof plan with clear steps for success.</p>
+                
+                <p>Why act now? Every lesson prepped you for this. You know Seats.aero setup, miles earning, alliances, and obstacles. Booking your first cheap flight proves you're a smart traveler, saving hundreds or thousands. For example, London to Miami for fifteen thousand miles + sixty dollars vs. nine hundred dollars is within reach. Tools global, works anywhere from Dubai to São Paulo.</p>
+                
+                <h2>How to Plan and Book Your First Cheap Flight</h2>
+                
+                <h3>1. Choose Destination</h3>
+                <ul>
+                    <li>Decide where (e.g., Rome, Tokyo, Cancún). Write goal: "Fly New York to Rome under three hundred dollars or twenty thousand miles".</li>
+                </ul>
+                
+                <h3>2. Use Seats.aero for Deal</h3>
+                <ul>
+                    <li>Go to www.seats.aero and log in.</li>
+                    <li>Enter origin (e.g., New York, JFK) and destination (e.g., Rome, FCO).</li>
+                    <li>Use filters: "Flexible Dates", "Award Tickets" (miles) or "Paid Tickets" (cash).</li>
+                    <li>Pick deal like fifteen thousand miles on United MileagePlus + sixty dollars.</li>
+                </ul>
+                
+                <h3>3. Check Available Miles</h3>
+                <ul>
+                    <li>Log into loyalty program (e.g., www.united.com).</li>
+                    <li>If short, buy (e.g., fifteen thousand for three hundred dollars) or transfer from card like Amex Membership Rewards (www.americanexpress.com).</li>
+                </ul>
+                
+                <h3>4. Book Ticket</h3>
+                <ul>
+                    <li>Click Seats.aero link to program site (e.g., www.united.com).</li>
+                    <li>Search same route, confirm miles + fees, finalize with info (name, passport).</li>
+                    <li>Save e-ticket email.</li>
+                </ul>
+                
+                <h3>5. Final Checklist</h3>
+                <ul>
+                    <li>Verify dates, times, ticket name.</li>
+                    <li>Check visa or docs for destination.</li>
+                </ul>
+                
+                <p>What's this for? Booking your first cheap flight builds confidence to keep traveling less. For example, twelve thousand miles on Air Canada Aeroplan for Toronto to Cancún saves four hundred dollars. Seats.aero and programs global, plan Berlin to Bangkok or Sydney to Paris easily.</p>
+                
+                <div class="tip-box"><p class="text-blue-800 font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>Practical Example:</p><p class="text-gray-700">Dream Paris. In Seats.aero, set: Origin: London (LHR). Destination: Paris (CDG). Filters: "Award Tickets", British Airways Avios. Find seven thousand miles + fifty dollars. Go to www.britishairways.com, log into Executive Club, book with earned (or bought for one hundred forty dollars) miles, save three hundred fifty dollars vs. four hundred regular. In fifteen minutes, flight confirmed, ready for Eiffel Tower.</p></div>
+                
+                <p>Why does this work? Seats.aero finds real-time deals, global programs like Star Alliance or Avios offer flexibility anywhere. You have tools to act now, turning dreams real.</p>
+                
+                <div class="action-box"><p class="text-green-800 font-semibold mb-2"><i class="fas fa-tasks mr-2"></i>Practical Action:</p><p class="text-gray-700">Go to www.seats.aero, pick destination (e.g., Miami, Bali), find deal. Follow to program site (e.g., www.united.com), steps to book your first cheap flight. If not ready, note deal and steps to feel prepared.</p></div>
+                
+                <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white my-8">
+                    <h3 class="text-2xl font-bold mb-3"><i class="fas fa-trophy mr-2"></i>Congratulations!</h3>
+                    <p class="text-lg mb-4">You've completed the SkyVault course! Now you have all the knowledge to travel the world spending less.</p>
+                    <p class="mb-2"><strong>Remember:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 mb-4">
+                        <li>Seats.aero is your deal-finding ally</li>
+                        <li>Loyalty programs are your treasure chest of miles</li>
+                        <li>The traveler community is here to support you</li>
+                    </ul>
+                    <p class="text-xl font-semibold">Happy travels! ✈️</p>
+                </div>
+                
+                <div class="flex justify-between mt-8"><button @click="currentLesson='m5a4'; window.scrollTo(0,0)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 flex items-center gap-2"><i class="fas fa-arrow-left"></i> Previous</button><button @click="currentLesson='home'; window.scrollTo(0,0)" class="bg-[#00508d] text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 flex items-center gap-2"><i class="fas fa-home mr-2"></i>Back to Home</button></div>
+            </div></div>
+
+        </div>
+    </div>
+    </div>
+    <!-- Fim do conteúdo autenticado -->
+
+</body>
+</html>

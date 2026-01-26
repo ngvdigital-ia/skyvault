@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thank You - SkyVault</title>
+  <title>Test - Capturing Hotmart Parameters</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -15,343 +15,328 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #ffffff;
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
       color: #1f2937;
-      line-height: 1.6;
-    }
-
-    /* Header Section */
-    .header {
-      text-align: center;
-      padding: 60px 20px 40px;
-    }
-
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #111827;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .header .subtitle {
-      font-size: 1.125rem;
-      color: #374151;
-      margin-bottom: 8px;
-    }
-
-    .header .subtitle strong {
-      font-weight: 700;
-    }
-
-    .header .description {
-      color: #6b7280;
-      font-size: 0.95rem;
-    }
-
-    /* Credentials Section */
-    .credentials-section {
       padding: 40px 20px;
+      min-height: 100vh;
     }
 
-    .credentials-card {
-      max-width: 480px;
+    .container {
+      max-width: 800px;
       margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e5e7eb;
     }
 
-    .credentials-card h2 {
-      text-align: center;
-      font-size: 1.25rem;
+    h1 {
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 24px;
       color: #111827;
-    }
-
-    .field {
-      margin-bottom: 20px;
-    }
-
-    .field label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: #374151;
       margin-bottom: 8px;
-    }
-
-    .field-value {
-      background: #f0f9ff;
-      border: 2px solid #bfdbfe;
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 1rem;
-      color: #1e40af;
-      font-weight: 500;
-    }
-
-    .field-note {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-top: 6px;
-    }
-
-    .access-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: #2563eb;
-      color: white;
-      font-size: 1.1rem;
-      font-weight: 600;
-      padding: 16px 24px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-top: 28px;
-      transition: background 0.2s;
-    }
-
-    .access-btn:hover {
-      background: #1d4ed8;
-    }
-
-    .access-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .save-note {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #9ca3af;
-      margin-top: 16px;
-    }
-
-    /* Email Alert Section */
-    .email-alert {
-      max-width: 480px;
-      margin: 0 auto 30px;
-      background: #fefce8;
-      border: 2px solid #fde047;
-      border-radius: 12px;
-      padding: 20px;
       text-align: center;
     }
 
-    .email-alert h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #854d0e;
-      margin-bottom: 8px;
-    }
-
-    .email-alert p {
-      font-size: 0.9rem;
-      color: #713f12;
-      margin-bottom: 4px;
-    }
-
-    .email-alert .sender {
-      font-weight: 600;
-      color: #854d0e;
-      background: #fef9c3;
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: inline-block;
-      margin-top: 8px;
-    }
-
-    /* Email Icons Section */
-    .email-section {
-      padding: 50px 20px;
+    .subtitle {
       text-align: center;
-    }
-
-    .email-section p {
       color: #6b7280;
       margin-bottom: 32px;
     }
 
-    .email-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 48px;
-      flex-wrap: wrap;
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
     }
 
-    .email-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .email-icon:hover {
-      opacity: 0.8;
-    }
-
-    .email-icon .icon-box {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .email-icon .icon-box.outlook {
-      background: #0078D4;
-      border-radius: 20px;
-    }
-
-    .email-icon .icon-box.yahoo {
-      background: #6001D2;
-      border-radius: 20px;
-    }
-
-    .email-icon .icon-box.yahoo span {
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-    }
-
-    .email-icon .label {
+    .card h2 {
+      font-size: 1rem;
       font-weight: 600;
       color: #374151;
-      font-size: 0.95rem;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
     }
 
-    /* Support Section */
-    .support-section {
-      padding: 40px 20px;
+    .url-display {
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      color: #4b5563;
+      margin-bottom: 16px;
+    }
+
+    .params-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .params-table th,
+    .params-table td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .params-table th {
+      background: #f9fafb;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #374151;
+    }
+
+    .params-table td {
+      font-size: 0.9rem;
+    }
+
+    .param-name {
+      font-family: monospace;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .param-value {
+      font-family: monospace;
+      background: #dcfce7;
+      color: #166534;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      word-break: break-all;
+    }
+
+    .no-params {
       text-align: center;
-      border-top: 1px solid #f3f4f6;
+      padding: 40px;
+      color: #9ca3af;
     }
 
-    .support-section p {
-      color: #6b7280;
+    .no-params .icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .success-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .warning-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .info-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .info-box h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e40af;
       margin-bottom: 8px;
     }
 
-    .support-section .email {
-      color: #ef4444;
-      font-weight: 500;
+    .info-box p {
+      font-size: 0.85rem;
+      color: #3b82f6;
     }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      .header h1 {
-        font-size: 2rem;
-      }
+    .timestamp {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      margin-top: 24px;
+    }
 
-      .email-icons {
-        gap: 32px;
-      }
+    /* Copy button */
+    .copy-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 12px;
+    }
 
-      .email-icon .icon-box {
-        width: 80px;
-        height: 80px;
-      }
-
-      .credentials-card {
-        padding: 24px;
-      }
+    .copy-btn:hover {
+      background: #2563eb;
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <div class="header">
-    <h1>CONGRATULATIONS!</h1>
-    <p class="subtitle">For purchasing <strong>SkyVault</strong></p>
-    <p class="description">Your access has been activated successfully</p>
-  </div>
+  <div class="container">
+    <h1>Teste de Captura - Hotmart Parameters</h1>
+    <p class="subtitle">Esta página captura todos os parâmetros enviados pela Hotmart</p>
 
-  <!-- Credentials Section -->
-  <div class="credentials-section">
-    <div class="credentials-card">
-      <h2>Your Access Details</h2>
+    <!-- Full URL Card -->
+    <div class="card">
+      <h2>URL Completa Recebida</h2>
+      <div class="url-display" id="fullUrl">Carregando...</div>
+      <button class="copy-btn" onclick="copyUrl()">Copiar URL</button>
+    </div>
 
-      <div class="field">
-        <label>Login (Email)</label>
-        <div class="field-value">Use the email you used during purchase</div>
+    <!-- Parameters Card -->
+    <div class="card">
+      <h2>Parâmetros Detectados (Query String)</h2>
+      <div id="paramsContainer">
+        <div class="no-params">
+          <div class="icon">🔍</div>
+          <p>Analisando parâmetros...</p>
+        </div>
       </div>
+    </div>
 
-      <div class="field">
-        <label>Password</label>
-        <div class="field-value">Use your phone number</div>
-        <p class="field-note">Numbers only, no spaces or dashes (e.g., 15551234567)</p>
+    <!-- Hash/Fragment Card -->
+    <div class="card">
+      <h2>Hash/Fragment (#)</h2>
+      <div id="hashContainer">
+        <p style="color: #9ca3af;">Nenhum hash detectado</p>
       </div>
-
-      <a href="https://skyvault.ngvmembers.site" target="_blank" class="access-btn">
-        Access Members Area
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
-      </a>
-
-      <p class="save-note">Save your credentials in a safe place</p>
     </div>
-  </div>
 
-  <!-- Email Alert -->
-  <div class="credentials-section" style="padding-top: 0;">
-    <div class="email-alert">
-      <h3>We also sent your login details by email</h3>
-      <p>Check your inbox (and spam folder) for an email from:</p>
-      <span class="sender">noreply@ngvmembers.site</span>
+    <!-- Referrer Card -->
+    <div class="card">
+      <h2>Informações Adicionais</h2>
+      <table class="params-table">
+        <tr>
+          <td><span class="param-name">Referrer</span></td>
+          <td id="referrer">-</td>
+        </tr>
+        <tr>
+          <td><span class="param-name">User Agent</span></td>
+          <td id="userAgent" style="font-size: 0.75rem;">-</td>
+        </tr>
+      </table>
     </div>
-  </div>
 
-  <!-- Email Icons Section -->
-  <div class="email-section">
-    <p>Open your email to see your access details</p>
-    <div class="email-icons">
-      <!-- Gmail -->
-      <a href="https://mail.google.com" target="_blank" class="email-icon">
-        <div class="icon-box">
-          <svg viewBox="0 0 24 24" width="100" height="100">
-            <path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-          </svg>
-        </div>
-        <span class="label">Gmail</span>
-      </a>
-
-      <!-- Outlook -->
-      <a href="https://outlook.live.com" target="_blank" class="email-icon">
-        <div class="icon-box outlook">
-          <svg viewBox="0 0 24 24" width="60" height="60" fill="white">
-            <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
-          </svg>
-        </div>
-        <span class="label">Outlook</span>
-      </a>
-
-      <!-- Yahoo -->
-      <a href="https://mail.yahoo.com" target="_blank" class="email-icon">
-        <div class="icon-box yahoo">
-          <span>Y!</span>
-        </div>
-        <span class="label">Yahoo</span>
-      </a>
+    <!-- Instructions -->
+    <div class="card">
+      <h2>Instruções do Teste</h2>
+      <div class="info-box">
+        <h3>O que fazer agora:</h3>
+        <p>1. Configure esta URL na Hotmart: <strong>https://skyvaultprogram.online/skyvault-obg/</strong></p>
+        <p>2. Faça uma compra de teste</p>
+        <p>3. Tire um screenshot desta página mostrando os parâmetros recebidos</p>
+        <p>4. Me envie o screenshot para analisarmos quais dados a Hotmart envia</p>
+      </div>
     </div>
+
+    <p class="timestamp" id="timestamp">Carregando...</p>
   </div>
 
-  <!-- Support Section -->
-  <div class="support-section">
-    <p>If you have any questions, contact our support team</p>
-    <p class="email">Email: support@ngvdigital.com</p>
-  </div>
+  <script>
+    // Display full URL
+    document.getElementById('fullUrl').textContent = window.location.href;
+
+    // Display referrer
+    document.getElementById('referrer').textContent = document.referrer || 'Nenhum (acesso direto)';
+
+    // Display user agent
+    document.getElementById('userAgent').textContent = navigator.userAgent;
+
+    // Display timestamp
+    document.getElementById('timestamp').textContent = 'Capturado em: ' + new Date().toLocaleString('pt-BR');
+
+    // Parse and display URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramsContainer = document.getElementById('paramsContainer');
+
+    if (urlParams.toString()) {
+      let tableHTML = '<span class="success-badge">✓ Parâmetros encontrados!</span>';
+      tableHTML += '<table class="params-table"><thead><tr><th>Parâmetro</th><th>Valor</th></tr></thead><tbody>';
+
+      for (const [key, value] of urlParams) {
+        tableHTML += `<tr>
+          <td><span class="param-name">${escapeHtml(key)}</span></td>
+          <td><span class="param-value">${escapeHtml(value)}</span></td>
+        </tr>`;
+      }
+
+      tableHTML += '</tbody></table>';
+
+      // Check for important params
+      const importantParams = ['email', 'transaction', 'trans', 'phone', 'tel', 'name', 'buyer', 'hotmart'];
+      const foundImportant = [];
+      for (const [key] of urlParams) {
+        for (const imp of importantParams) {
+          if (key.toLowerCase().includes(imp)) {
+            foundImportant.push(key);
+          }
+        }
+      }
+
+      if (foundImportant.length > 0) {
+        tableHTML += `<div class="info-box" style="margin-top: 16px; background: #dcfce7; border-color: #86efac;">
+          <h3 style="color: #166534;">🎉 Parâmetros importantes detectados!</h3>
+          <p style="color: #15803d;">Encontrados: ${foundImportant.join(', ')}</p>
+        </div>`;
+      }
+
+      paramsContainer.innerHTML = tableHTML;
+    } else {
+      paramsContainer.innerHTML = `
+        <span class="warning-badge">⚠ Nenhum parâmetro na URL</span>
+        <div class="no-params">
+          <div class="icon">📭</div>
+          <p>A Hotmart não enviou parâmetros via query string.</p>
+          <p style="margin-top: 8px; font-size: 0.85rem;">Isso significa que precisaremos usar outra abordagem (página intermediária ou instruções estáticas).</p>
+        </div>
+      `;
+    }
+
+    // Display hash
+    const hashContainer = document.getElementById('hashContainer');
+    if (window.location.hash) {
+      hashContainer.innerHTML = `<span class="param-value">${escapeHtml(window.location.hash)}</span>`;
+    }
+
+    // Helper function to escape HTML
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Copy URL function
+    function copyUrl() {
+      navigator.clipboard.writeText(window.location.href);
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar URL', 2000);
+    }
+
+    // Also log everything to console for debugging
+    console.log('=== HOTMART PARAMETER TEST ===');
+    console.log('Full URL:', window.location.href);
+    console.log('Search params:', window.location.search);
+    console.log('Hash:', window.location.hash);
+    console.log('Referrer:', document.referrer);
+    console.log('All params:', Object.fromEntries(urlParams));
+  </script>
 </body>
 </html>

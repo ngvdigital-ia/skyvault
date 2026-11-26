@@ -72,5 +72,31 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/vsl",
+      "destination": "/skyvault/index.html"
+    },
+    {
+      "source": "/vsl/",
+      "destination": "/skyvault/index.html"
+    },
+    {
+      "source": "/up1",
+      "destination": "/up1-sv/index.html"
+    },
+    {
+      "source": "/up1/",
+      "destination": "/up1-sv/index.html"
+    },
+    {
+      "source": "/obrigado",
+      "destination": "/skyvault-obg/index.html"
+    },
+    {
+      "source": "/obrigado/",
+      "destination": "/skyvault-obg/index.html"
+    }
   ]
 }
